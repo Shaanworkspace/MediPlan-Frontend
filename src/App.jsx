@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router"
 
 import './App.css'
-import HomePage from './components/Home/MyComponents/Pages/HomePage'
+import HomePage from './components/MyComponents/Pages/HomePage'
 
 
 function App() {
