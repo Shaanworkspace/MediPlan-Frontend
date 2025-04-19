@@ -27,7 +27,6 @@ const LoginForm = () => {
               className="w-full px-4 py-2 mt-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
-
           <div>
             <label htmlFor="password" className="block font-medium text-gray-700">
               Password

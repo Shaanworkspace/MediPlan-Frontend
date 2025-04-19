@@ -2,11 +2,11 @@ import React from 'react'
 
 const HomePageHeader = () => {
     return (
-        <header className="bg-white dark:bg-gray-900">
+        <header className="bg-[#E6E6FA] pt-3">
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between ">
                     <div className="flex-1 md:flex md:items-center md:gap-12">
-                        <div className='text-white font-semibold text-3xl'>
+                        <div className='text-black font-semibold text-4xl'>
                             MediPlan
                         </div>
                     </div>
@@ -16,7 +16,7 @@ const HomePageHeader = () => {
                             <ul className="flex items-center gap-6 text-sm">
                                 <li>
                                     <a
-                                        className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
                                         href="#"
                                     >
                                         Home
@@ -25,7 +25,7 @@ const HomePageHeader = () => {
 
                                 <li>
                                     <a
-                                        className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
                                         href="#"
                                     >
                                         Reports
@@ -34,7 +34,7 @@ const HomePageHeader = () => {
 
                                 <li>
                                     <a
-                                        className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
                                         href="#"
                                     >
                                         Medicines
@@ -43,7 +43,7 @@ const HomePageHeader = () => {
 
                                 <li>
                                     <a
-                                        className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
                                         href="#"
                                     >
                                         Appointment
@@ -52,7 +52,7 @@ const HomePageHeader = () => {
 
                                 <li>
                                     <a
-                                        className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
                                         href="#"
                                     >
                                         Location
@@ -61,7 +61,7 @@ const HomePageHeader = () => {
 
                                 <li>
                                     <a
-                                        className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
                                         href="#"
                                     >
                                         Help us
@@ -73,25 +73,16 @@ const HomePageHeader = () => {
                         <div className="flex items-center gap-4">
                             <div className="sm:flex sm:gap-4">
                                 <a
-                                    className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm dark:hover:bg-teal-500"
+                                    className="rounded-md bg-teal-600 px-5 py-2.5 sm:text-lg font-medium text-white shadow-sm dark:hover:bg-teal-500"
                                     href="#"
                                 >
-                                    Login
+                                    Show Plan
                                 </a>
-
-                                <div className="hidden sm:flex">
-                                    <a
-                                        className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
-                                        href="#"
-                                    >
-                                        Register
-                                    </a>
-                                </div>
                             </div>
 
                             <div className="block md:hidden">
                                 <button
-                                    className="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                                    className="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:hover:text-blue-900 sm:text-lg"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
