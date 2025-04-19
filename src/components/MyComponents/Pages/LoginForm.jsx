@@ -1,6 +1,5 @@
 import React from 'react';
-import googleIcon from '../../../assets/react.svg'; // You can use any placeholder
-import githubIcon from '../../../assets/react.svg'; // You can use any placeholder
+
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import stethoscopeBg from '../../../assets/stethoscope.jpg'; // adjust path as needed
