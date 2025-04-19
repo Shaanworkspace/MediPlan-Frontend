@@ -1,11 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router'
 
 const HomePageHeader = () => {
+    const navigate = useNavigate();
+
+    const handleNavigation = (route) => {
+        navigate(route);
+    }
     return (
-        <header className="bg-[#E6E6FA] pt-3">
+        <header className="bg-[#E6E6FA] pt-3 fixed top-0 w-full z-50 ">
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between ">
-                    <div className="flex-1 md:flex md:items-center md:gap-12">
+                    <div onClick={() => { handleNavigation('/') }} className="flex-1 md:flex md:items-center md:gap-12">
                         <div className='text-black font-semibold text-4xl'>
                             MediPlan
                         </div>
@@ -17,7 +23,7 @@ const HomePageHeader = () => {
                                 <li>
                                     <a
                                         className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                        href="#"
+                                        onClick={()=>{handleNavigation("/")}}
                                     >
                                         Home
                                     </a>
@@ -26,7 +32,7 @@ const HomePageHeader = () => {
                                 <li>
                                     <a
                                         className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                        href="#"
+                                        onClick={()=>{handleNavigation('/report')}}
                                     >
                                         Reports
                                     </a>
@@ -44,7 +50,7 @@ const HomePageHeader = () => {
                                 <li>
                                     <a
                                         className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                        href="#"
+                                        onClick={()=>{handleNavigation('/appointment')}}
                                     >
                                         Appointment
                                     </a>
@@ -53,7 +59,7 @@ const HomePageHeader = () => {
                                 <li>
                                     <a
                                         className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                        href="#"
+                                        href='#'
                                     >
                                         Location
                                     </a>
@@ -62,7 +68,7 @@ const HomePageHeader = () => {
                                 <li>
                                     <a
                                         className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                        href="#"
+                                        onClick={()=>{handleNavigation('/contact')}}
                                     >
                                         Help us
                                     </a>
@@ -73,7 +79,7 @@ const HomePageHeader = () => {
                         <div className="flex items-center gap-4">
                             <div className="sm:flex sm:gap-4">
                                 <a
-                                    className="rounded-md bg-teal-600 px-5 py-2.5 sm:text-lg font-medium text-white shadow-sm dark:hover:bg-teal-500"
+                                    className="hover:shadow-xl transition duration-300 rounded-md bg-teal-600 px-5 py-2.5 sm:text-lg font-medium text-white shadow-md hover:bg-teal-800"
                                     href="#"
                                 >
                                     Show Plan
