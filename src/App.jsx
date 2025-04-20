@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router"
-
+import React from "react";
 import './App.css'
 import HomePage from './components/MyComponents/Pages/HomePage'
 import LoginForm from './components/MyComponents/Pages/LoginForm'
@@ -9,6 +9,7 @@ import  ErrorPage from './components/MyComponents/UI/ErrorPage'
 import Contact from './components/MyComponents/FeaturePages/Contact'
 import Appointment from './components/MyComponents/FeaturePages/Appointment'
 import Reports from './components/MyComponents/FeaturePages/Reports'
+import UserDashboard from './components/MyComponents/Dashboards/UserDashboard'
 
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
                 <Route path='/report' element={<Reports/>}/>
                 <Route path='/contact' element={<Contact/>}/>
                 <Route path='/appointment' element={<Appointment/>}/>
+
+                <Route path='/user' element={<UserDashboard/>}/>
             </Routes>
         </BrowserRouter>
     )
