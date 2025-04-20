@@ -10,6 +10,8 @@ import Contact from './components/MyComponents/FeaturePages/Contact'
 import Appointment from './components/MyComponents/FeaturePages/Appointment'
 import Reports from './components/MyComponents/FeaturePages/Reports'
 import UserDashboard from './components/MyComponents/Dashboards/UserDashboard'
+import Medicines from './components/MyComponents/FeaturePages/Symptoms';
+import MedicinePage from './components/MyComponents/FeaturePages/MedicinePage';
 
 
 function App() {
@@ -25,8 +27,9 @@ function App() {
                 <Route path='/report' element={<Reports/>}/>
                 <Route path='/contact' element={<Contact/>}/>
                 <Route path='/appointment' element={<Appointment/>}/>
-
+                <Route path='/medicine' element={<Medicines/>}/>
                 <Route path='/user' element={<UserDashboard/>}/>
+                <Route path='/aboutMedicine' element={<MedicinePage/>}/>
             </Routes>
         </BrowserRouter>
     )

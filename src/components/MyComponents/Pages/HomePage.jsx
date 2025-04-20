@@ -23,7 +23,7 @@ const HomePage = () => {
 		switch (activeTab) {
 			case "stats":
 				return (
-					<div className="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800">
+					<div className="p-4 bg-white rounded-lg md:p-8 ">
 						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 							{[
 								{ value: "95,856,25", label: "Medication Adherence Rate" },
@@ -33,9 +33,9 @@ const HomePage = () => {
 								{ value: "12,50+ Users", label: "Low Stock Alerts Sent" },
 								{ value: "95,856,25", label: "Caregiver-Assist Schedule" },
 							].map((item, i) => (
-								<div key={i} className="flex flex-col items-center justify-center p-4 bg-white dark:bg-gray-700  rounded shadow-md">
+								<div key={i} className="flex flex-col items-center justify-center border-1 p-4 bg-white dark:bg-white/60 rounded shadow-lg transition hover:shadow-xl">
 									<dt className="mb-2 text-3xl font-extrabold">{item.value}</dt>
-									<dd className="text-gray-500 dark:text-gray-300 text-center">{item.label}</dd>
+									<dd className="text-gray-500 dark:text-gray-800 text-center">{item.label}</dd>
 								</div>
 							))}
 						</div>
@@ -43,11 +43,11 @@ const HomePage = () => {
 				);
 			case "about":
 				return (
-					<div className="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800">
-						<h2 className="mb-5 text-[2.5vw] font-extrabold tracking-tight text-gray-900 dark:text-white">
+					<div className="p-4 bg-white rounded-lg md:p-8 ">
+						<h2 className="mb-5 text-[2.5vw] font-extrabold tracking-tight text-gray-700">
 							We are helping people in various ways
 						</h2>
-						<ul className="space-y-4 text-gray-500 dark:text-gray-400">
+						<ul className="space-y-4 text-black ">
 							{[
 								"📅 Appointment Scheduling – Book and manage doctor appointments with ease.",
 								"🩺 Medical History Tracking – Access complete patient history anytime.",
@@ -68,8 +68,8 @@ const HomePage = () => {
 				);
 			case "faq":
 				return (
-					<div className="p-4 bg-white rounded-lg dark:bg-gray-800">
-						<ul className="space-y-4 text-gray-500 dark:text-gray-400">
+					<div className="p-4 bg-white rounded-lg ">
+						<ul className="space-y-4 text-gray-500 ">
 							{[
 								{
 									question: "How do I book a doctor’s appointment?",
@@ -89,8 +89,8 @@ const HomePage = () => {
 								}
 							].map((item, i) => (
 								<li key={i}>
-									<p className="font-semibold text-gray-700 dark:text-white">{item.question}</p>
-									<p className="mt-1">{item.answer}</p>
+									<p className="font-semibold text-black ">{item.question}</p>
+									<p className="mt-1">Ans: {item.answer}</p>
 								</li>
 							))}
 						</ul>
@@ -126,12 +126,12 @@ const HomePage = () => {
 				<HomePageHeader />
 			</div>
 			{/* Page 1 */}
-			<section className='bg-[#E6E6FA] mt-10' >
+			<section className='bg-[#E6E6FA] mt-16 sm:mt-10' >
 				<div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8 bg-[#E6E6FA]">
 					<div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:items-center md:gap-8">
 						<div>
 							<div className="max-w-lg md:max-w-none">
-								<h2 className="text-2xl font-semibold text-gray-800 sm:text-5xl sm:font-bold">
+								<h2 className="text-3xl font-semibold text-gray-800 sm:text-5xl sm:font-bold">
 									Your health journey, simplified..
 								</h2>
 
@@ -176,9 +176,9 @@ const HomePage = () => {
 						<h2 className="font-semibold text-black/70 sm:mt-3">MediPlan ensures optimal health management for users.</h2>
 					</div>
 					<div className="pt-6">
-						<div className="w-full h-[60vh] bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+						<div className="w-full h-[60vh] bg-white border border-gray-200 rounded-lg shadow-sm  dark:border-gray-700">
 							{/* Mobile Dropdown Active only in mobile view */}
-							<div className="sm:hidden">
+							<div className="sm:hidden ">
 								<label htmlFor="tabs" className="sr-only">Select tab</label>
 								<select
 									id="tabs"
@@ -196,9 +196,9 @@ const HomePage = () => {
 									<li key={tab} className="w-full flex justify-evenly">
 										<button
 											onClick={() => setActiveTab(tab)}
-											className={`inline-block w-full p-4 focus:outline-none ${activeTab === tab
-												? "bg-gray-100 dark:bg-gray-600 text-black font-bold"
-												: "bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+											className={`shadow-lg transition hover:shadow-xl inline-block w-full p-4 focus:outline-none ${activeTab === tab
+												? "bg-gray-100 dark:bg-black text-white font-bold text-xl"
+												: "bg-gray-300 hover:bg-gray-100  "
 												}`}
 										>
 											{tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -208,7 +208,7 @@ const HomePage = () => {
 							</ul>
 
 							{/* Tab Content */}
-							<div className="border-t border-gray-200 dark:border-gray-600">
+							<div className="border-t border-gray-200 dark:border-gray-600 h-84 overflow-y-auto px-4 ">
 								{renderTabContent()}
 							</div>
 						</div>

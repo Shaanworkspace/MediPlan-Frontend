@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
-const HeaderPage= () => {
+const HeaderPage= ({ButtonText, onToggle  }) => {
         const navigate = useNavigate();
         const handleNavigation = (route) => {
             navigate(route);
@@ -39,7 +39,7 @@ const HeaderPage= () => {
                                     <li>
                                         <a
                                             className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                            href="#"
+                                            onClick={()=>{handleNavigation('/medicine')}}
                                         >
                                             Medicines
                                         </a>
@@ -77,10 +77,11 @@ const HeaderPage= () => {
                             <div className="flex items-center gap-4">
                                 <div className="sm:flex sm:gap-4">
                                     <a
-                                        className="hover:shadow-xl transition duration-300 rounded-md bg-teal-600 px-5 py-2.5 sm:text-lg font-medium text-white shadow-md hover:bg-teal-800"
+                                        className="hover:shadow-xl shadow-md transition duration-300 rounded-md bg-teal-600 px-5 py-2.5 sm:text-lg font-medium text-white  hover:bg-teal-800"
+                                        onClick={onToggle}
                                         href="#"
                                     >
-                                        Show Plan
+                                        {ButtonText}
                                     </a>
                                 </div>
     

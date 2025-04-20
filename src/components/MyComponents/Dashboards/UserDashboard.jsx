@@ -1,165 +1,112 @@
-import React from "react";
+import React, { useState } from 'react';
+import HeaderPage from '../UI/HeaderPage'; // Importing your header component
 
+const Appointment = () => {
+    const [open, setOpen] = useState(false);
 
-import { Bell, PlusCircle, Activity, Calendar, Stethoscope, User } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import HeaderPage from "../UI/HeaderPage";
-
-
-const dummyReports = [
-    {
-        id: 1,
-        date: "2025-04-15",
-        status: "Monitor",
-        summary: "You reported mild cough and fever. Stay hydrated and rest."
-    },
-    {
-        id: 2,
-        date: "2025-04-10",
-        status: "Normal",
-        summary: "No alarming symptoms reported. Maintain your routine."
-    },
-    {
-        id: 3,
-        date: "2025-04-10",
-        status: "Normal",
-        summary: "No alarming symptoms reported. Maintain your routine."
-    },
-    {
-        id: 2,
-        date: "2025-04-10",
-        status: "Normal",
-        summary: "No alarming symptoms reported. Maintain your routine."
-    }
-];
-
-const symptomData = [
-    { date: "Apr 01", symptoms: 1 },
-    { date: "Apr 03", symptoms: 2 },
-    { date: "Apr 05", symptoms: 1 },
-    { date: "Apr 10", symptoms: 0 },
-    { date: "Apr 15", symptoms: 2 }
-];
-
-export default function UserDashboard() {
     return (
-        <div  className='bg-[#E6E6FA]'>
-            {/* Navbar */}
-			<div className="fixed top-0 left-0 w-full z-1">
-				<HeaderPage/>
-			</div>
-            
-            {/* body */}
-            <div className="mt-16 min-h-screen grid grid-cols-12">
-                {/* Sidebar
-                <aside className="col-span-2 bg-white shadow-lg p-6 flex flex-col gap-6">
-                    <h1 className="text-2xl font-bold text-blue-600">MediPlan</h1>
-                    <nav className="flex flex-col gap-4">
-                        <Button variant="ghost" className="justify-start text-left"><User className="mr-2" /> Dashboard</Button>
-                        <Button variant="ghost" className="justify-start text-left"><PlusCircle className="mr-2" /> New Report</Button>
-                        <Button variant="ghost" className="justify-start text-left"><Calendar className="mr-2" /> Symptom Tracker</Button>
-                        <Button variant="ghost" className="justify-start text-left"><Stethoscope className="mr-2" /> Tips</Button>
-                        <Button variant="ghost" className="justify-start text-left"><Activity className="mr-2" /> Health Alerts</Button>
-                        <Button variant="ghost" className="justify-start text-left"><Bell className="mr-2" /> Reminders</Button>
-                    </nav>
-                </aside> */}
-                
-                {/* Main Content */}
-                <main className="col-span-10 p-8 space-y-10">
-                    {/* Welcome Panel */}
-                    <section className="flex items-center justify-between bg-white p-6 rounded-2xl shadow">
-                        <div>
-                            <h2 className="text-3xl font-semibold">Good Morning, Shaan 👋</h2>
-                            <p className="text-gray-600">Here’s your health overview for the week.</p>
-                        </div>
-                        <img src="https://source.unsplash.com/80x80/?profile" alt="Profile" className="rounded-full" />
-                    </section>
+        <div className="bg-[#E6E6FA] flex flex-col min-h-screen">
+            <div className="mx-auto min-w-screen-xl px-4 sm:px-6 lg:px-8">
+                <div
+                    className={`transition-all duration-300 ease-in-out`}
+                    style={{
+                        width: open ? 'calc(100% - 256px)' : '100%',
+                    }}
+                >
+                    {/* Header */}
+                    <div className="fixed top-0 left-0 w-full z-10">
+                        <HeaderPage ButtonText={`${open ? 'Close' : 'Open'} Panel`} onToggle={() => setOpen((prev) => !prev)} />
+                    </div>
 
-                    {/* Health Report Timeline */}
-                    <section>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Your Health Reports</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                                {dummyReports.map((report) => (
-                                    <div key={report.id} className="border-l-4 pl-4 border-blue-500 bg-blue-50 p-4 rounded">
-                                        <p className="text-sm text-gray-600">{report.date}</p>
-                                        <p className="text-md font-medium">Status: {report.status}</p>
-                                        <p className="text-sm text-gray-800">{report.summary}</p>
-                                    </div>
-                                ))}
-                            </CardContent>
-                        </Card>
-                    </section>
+                    {/* Main Area */}
+                    <div className="mt-5 min-h-screen">
+                        <div className="bg-[#E6E6FA] min-h-screen flex flex-col items-center">
+                            <div className="w-full max-w-7xl p-6">
+                                <h1 className="text-4xl font-semibold text-center text-gray-800">Book an Appointment</h1>
+                                <p className="text-xl text-center text-gray-600 mt-2">Fill out the form below to schedule an appointment.</p>
+                            </div>
 
-                    {/* Symptom Tracker Graph */}
-                    <section>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Symptom Tracker</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <ResponsiveContainer width="100%" height={300}>
-                                    <LineChart data={symptomData}>
-                                        <XAxis dataKey="date" />
-                                        <YAxis allowDecimals={false} />
-                                        <Tooltip />
-                                        <Line type="monotone" dataKey="symptoms" stroke="#2563eb" strokeWidth={2} />
-                                    </LineChart>
-                                </ResponsiveContainer>
-                            </CardContent>
-                        </Card>
-                    </section>
+                            {/* Appointment Form */}
+                            <div className="w-full max-w-7xl p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div className="bg-white shadow-lg hover:shadow-xl transition duration-300 rounded-lg p-6">
+                                    <form className="space-y-6">
+                                        <div>
+                                            <label htmlFor="fullName" className="block text-gray-700">Full Name</label>
+                                            <input
+                                                type="text"
+                                                id="fullName"
+                                                className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-300"
+                                                placeholder="Enter your full name"
+                                            />
+                                        </div>
 
-                    {/* Personalized Health Tips */}
-                    <section className="grid grid-cols-2 gap-6">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Health Tips</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <ul className="list-disc pl-4 space-y-2 text-gray-700">
-                                    <li>Stay hydrated. Aim for 2-3 liters of water per day.</li>
-                                    <li>Get 7-9 hours of sleep to boost immunity.</li>
-                                    <li>Wear a mask in high-pollution areas.</li>
-                                </ul>
-                            </CardContent>
-                        </Card>
+                                        <div>
+                                            <label htmlFor="email" className="block text-gray-700">Email Address</label>
+                                            <input
+                                                type="email"
+                                                id="email"
+                                                className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-300"
+                                                placeholder="Enter your email"
+                                            />
+                                        </div>
 
-                        {/* Health Alerts */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Public Health Alerts (Delhi)</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <ul className="list-disc pl-4 space-y-2 text-red-700">
-                                    <li>Pollution index high this week. Avoid outdoor exercise.</li>
-                                    <li>Flu season rising — get your flu vaccine.</li>
-                                    <li>COVID-19 subvariant cases reported in NCR.</li>
-                                </ul>
-                            </CardContent>
-                        </Card>
-                    </section>
+                                        <div>
+                                            <label htmlFor="date" className="block text-gray-700">Preferred Appointment Date</label>
+                                            <input
+                                                type="date"
+                                                id="date"
+                                                className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-300"
+                                            />
+                                        </div>
 
-                    {/* Medication Reminders */}
-                    <section>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Reminders</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="space-y-3">
-                                    <p className="text-gray-700">💊 Take Vitamin D supplement at 10:00 AM</p>
-                                    <p className="text-gray-700">🩺 Follow-up with doctor on April 22</p>
+                                        <div>
+                                            <label htmlFor="message" className="block text-gray-700">Additional Notes</label>
+                                            <textarea
+                                                id="message"
+                                                className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-300"
+                                                rows="4"
+                                                placeholder="Any specific requests or notes?"
+                                            ></textarea>
+                                        </div>
+
+                                        {/* Submit Button */}
+                                        <div className="flex justify-center mt-6">
+                                            <button
+                                                type="submit"
+                                                className="bg-teal-600 text-white py-3 px-6 rounded-lg shadow-md hover:bg-teal-800 transition duration-300"
+                                            >
+                                                Book Appointment
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </CardContent>
-                        </Card>
-                    </section>
-                </main>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                
+                {/* Right Drawer (Optional) */}
+                <div
+                    id="drawer-navigation"
+                    className={`fixed top-0 right-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform bg-white ${open ? 'translate-x-0' : 'translate-x-full'}`}
+                >
+                    <button
+                        onClick={() => setOpen(false)}
+                        className="absolute top-2.5 right-2.5 text-gray-400 hover:text-gray-900 rounded-lg text-sm p-1.5"
+                    >
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                fillRule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clipRule="evenodd"
+                            />
+                        </svg>
+                    </button>
+                    <h5 className="text-base font-semibold text-gray-500">Appointment Panel</h5>
+                </div>
             </div>
         </div>
     );
-}
+};
+
+export default Appointment;
