@@ -16,9 +16,9 @@ const SignupForm = () => {
         company: ''
     });
     const navigate = useNavigate();
-      const handleNavigation = (route) => {
+    const handleNavigation = (route) => {
         navigate(route);
-      }
+    }
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -165,7 +165,7 @@ const SignupForm = () => {
                     </div>
 
                     <p className="mt-6 text-center text-sm text-gray-600">
-                        Already have an account? <a onClick={()=>{handleNavigation("/login")}} className="text-blue-600 underline">Login</a>
+                        Already have an account? <a onClick={() => { handleNavigation("/login") }} className="text-blue-600 underline">Login</a>
                     </p>
                 </div>
             </div>

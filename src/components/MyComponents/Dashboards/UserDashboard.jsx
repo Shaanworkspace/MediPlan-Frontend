@@ -1,112 +1,125 @@
-import React, { useState } from 'react';
-import HeaderPage from '../UI/HeaderPage'; // Importing your header component
+import React from 'react';
 
-const Appointment = () => {
-    const [open, setOpen] = useState(false);
-
+const UserDashboard = () => {
     return (
-        <div className="bg-[#E6E6FA] flex flex-col min-h-screen">
-            <div className="mx-auto min-w-screen-xl px-4 sm:px-6 lg:px-8">
-                <div
-                    className={`transition-all duration-300 ease-in-out`}
-                    style={{
-                        width: open ? 'calc(100% - 256px)' : '100%',
-                    }}
-                >
-                    {/* Header */}
-                    <div className="fixed top-0 left-0 w-full z-10">
-                        <HeaderPage ButtonText={`${open ? 'Close' : 'Open'} Panel`} onToggle={() => setOpen((prev) => !prev)} />
+        <div className="min-h-screen bg-gray-50 flex flex-col">
+            {/* Header */}
+            <header className="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-50">
+                <div className="text-2xl font-bold text-blue-700">MediPlan</div>
+                <nav className="space-x-6 text-gray-700">
+                    <a href="#dashboard" className="hover:text-blue-600">Dashboard</a>
+                    <a href="#appointments" className="hover:text-blue-600">Appointments</a>
+                    <a href="#history" className="hover:text-blue-600">History</a>
+                    <a href="#profile" className="hover:text-blue-600">Profile</a>
+                    <a href="#logout" className="text-red-500 font-medium hover:text-red-600">Logout</a>
+                </nav>
+            </header>
+
+            {/* Main Content */}
+            <main className="flex flex-col lg:flex-row flex-grow">
+                {/* Sidebar */}
+                <aside className="lg:w-1/4 w-full bg-white p-6 shadow-lg space-y-6">
+                    <div>
+                        <h2 className="text-lg font-semibold mb-2">Quick Actions</h2>
+                        <ul className="space-y-2">
+                            <li><button className="w-full text-left px-4 py-2 bg-blue-100 hover:bg-blue-200 rounded">Book Appointment</button></li>
+                            <li><button className="w-full text-left px-4 py-2 bg-blue-100 hover:bg-blue-200 rounded">View Prescriptions</button></li>
+                            <li><button className="w-full text-left px-4 py-2 bg-blue-100 hover:bg-blue-200 rounded">Upload Documents</button></li>
+                            <li><button className="w-full text-left px-4 py-2 bg-blue-100 hover:bg-blue-200 rounded">Billing Info</button></li>
+                        </ul>
                     </div>
 
-                    {/* Main Area */}
-                    <div className="mt-5 min-h-screen">
-                        <div className="bg-[#E6E6FA] min-h-screen flex flex-col items-center">
-                            <div className="w-full max-w-7xl p-6">
-                                <h1 className="text-4xl font-semibold text-center text-gray-800">Book an Appointment</h1>
-                                <p className="text-xl text-center text-gray-600 mt-2">Fill out the form below to schedule an appointment.</p>
-                            </div>
+                    <div>
+                        <h2 className="text-lg font-semibold mb-2">Settings</h2>
+                        <ul className="space-y-2">
+                            <li><button className="w-full text-left px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded">Notification</button></li>
+                            <li><button className="w-full text-left px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded">Account Info</button></li>
+                            <li><button className="w-full text-left px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded">Change Password</button></li>
+                        </ul>
+                    </div>
+                </aside>
 
-                            {/* Appointment Form */}
-                            <div className="w-full max-w-7xl p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                <div className="bg-white shadow-lg hover:shadow-xl transition duration-300 rounded-lg p-6">
-                                    <form className="space-y-6">
-                                        <div>
-                                            <label htmlFor="fullName" className="block text-gray-700">Full Name</label>
-                                            <input
-                                                type="text"
-                                                id="fullName"
-                                                className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-300"
-                                                placeholder="Enter your full name"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label htmlFor="email" className="block text-gray-700">Email Address</label>
-                                            <input
-                                                type="email"
-                                                id="email"
-                                                className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-300"
-                                                placeholder="Enter your email"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label htmlFor="date" className="block text-gray-700">Preferred Appointment Date</label>
-                                            <input
-                                                type="date"
-                                                id="date"
-                                                className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-300"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label htmlFor="message" className="block text-gray-700">Additional Notes</label>
-                                            <textarea
-                                                id="message"
-                                                className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-300"
-                                                rows="4"
-                                                placeholder="Any specific requests or notes?"
-                                            ></textarea>
-                                        </div>
-
-                                        {/* Submit Button */}
-                                        <div className="flex justify-center mt-6">
-                                            <button
-                                                type="submit"
-                                                className="bg-teal-600 text-white py-3 px-6 rounded-lg shadow-md hover:bg-teal-800 transition duration-300"
-                                            >
-                                                Book Appointment
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                {/* Dashboard Content */}
+                <section className="flex-1 p-6 space-y-6 overflow-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                        <div className="bg-white p-4 rounded-lg shadow">
+                            <h3 className="text-sm text-gray-500">Upcoming Appointments</h3>
+                            <p className="text-2xl font-bold text-blue-600">3</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg shadow">
+                            <h3 className="text-sm text-gray-500">Pending Reports</h3>
+                            <p className="text-2xl font-bold text-yellow-500">2</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg shadow">
+                            <h3 className="text-sm text-gray-500">Total Visits</h3>
+                            <p className="text-2xl font-bold text-green-600">15</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg shadow">
+                            <h3 className="text-sm text-gray-500">Medicines Due</h3>
+                            <p className="text-2xl font-bold text-red-500">1</p>
                         </div>
                     </div>
-                </div>
 
-                {/* Right Drawer (Optional) */}
-                <div
-                    id="drawer-navigation"
-                    className={`fixed top-0 right-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform bg-white ${open ? 'translate-x-0' : 'translate-x-full'}`}
-                >
-                    <button
-                        onClick={() => setOpen(false)}
-                        className="absolute top-2.5 right-2.5 text-gray-400 hover:text-gray-900 rounded-lg text-sm p-1.5"
-                    >
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                fillRule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clipRule="evenodd"
-                            />
-                        </svg>
-                    </button>
-                    <h5 className="text-base font-semibold text-gray-500">Appointment Panel</h5>
-                </div>
-            </div>
+                    <div className="bg-white p-6 rounded-lg shadow">
+                        <h2 className="text-xl font-semibold mb-4">Recent Appointments</h2>
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr>
+                                    <th className="border-b p-2">Date</th>
+                                    <th className="border-b p-2">Doctor</th>
+                                    <th className="border-b p-2">Status</th>
+                                    <th className="border-b p-2">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="p-2">2025-04-20</td>
+                                    <td className="p-2">Dr. Sharma</td>
+                                    <td className="p-2 text-green-600">Completed</td>
+                                    <td className="p-2"><button className="text-blue-500 hover:underline">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td className="p-2">2025-04-21</td>
+                                    <td className="p-2">Dr. Verma</td>
+                                    <td className="p-2 text-yellow-600">Pending</td>
+                                    <td className="p-2"><button className="text-blue-500 hover:underline">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td className="p-2">2025-04-22</td>
+                                    <td className="p-2">Dr. Iyer</td>
+                                    <td className="p-2 text-blue-600">Scheduled</td>
+                                    <td className="p-2"><button className="text-blue-500 hover:underline">View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="bg-white p-6 rounded-lg shadow">
+                        <h2 className="text-xl font-semibold mb-4">Medical Reminders</h2>
+                        <ul className="space-y-2">
+                            <li className="flex items-center justify-between">
+                                <span>Vitamin D Supplement</span>
+                                <span className="text-sm text-gray-500">Daily at 8 AM</span>
+                            </li>
+                            <li className="flex items-center justify-between">
+                                <span>Blood Test</span>
+                                <span className="text-sm text-gray-500">2025-04-25</span>
+                            </li>
+                            <li className="flex items-center justify-between">
+                                <span>Eye Check-up</span>
+                                <span className="text-sm text-gray-500">2025-05-01</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+
+            {/* Footer */}
+            <footer className="bg-white p-4 text-center shadow-inner text-sm text-gray-500">
+                © 2025 MediPlan | All rights reserved
+            </footer>
         </div>
     );
 };
 
-export default Appointment;
+export default UserDashboard;

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
-import HomePageHeader from '../UI/HomePageHeader'
+import HomeHeader from '../UI/HomeHeader'
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { LuNotebookPen } from "react-icons/lu";
 import { useState } from "react";
@@ -123,7 +123,7 @@ const HomePage = () => {
 		<div className='bg-[#E6E6FA]'>
 			{/* Navbar */}
 			<div className="fixed top-0 left-0 w-full z-1">
-				<HomePageHeader />
+				<HomeHeader />
 			</div>
 			{/* Page 1 */}
 			<section className='bg-[#E6E6FA] mt-16 sm:mt-10' >
