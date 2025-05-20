@@ -12,6 +12,12 @@ import Reports from './components/MyComponents/FeaturePages/Reports'
 import UserDashboard from './components/MyComponents/Dashboards/UserDashboard'
 import Medicines from './components/MyComponents/FeaturePages/Symptoms';
 import MedicinePage from './components/MyComponents/FeaturePages/MedicinePage';
+import ViewPrescriptions from './components/MyComponents/Pages/ViewPrescriptions';
+import UploadDocuments from './components/MyComponents/Pages/UploadDocuments';
+import BillingInfo from './components/MyComponents/Pages/BillingInfo';
+import Notification from './components/MyComponents/Pages/Notification';
+import AccountInfo from './components/MyComponents/Pages/AccountInfo';
+import ChangePassword from './components/MyComponents/Pages/ChangePassword';
 
 
 function App() {
@@ -30,6 +36,13 @@ function App() {
                 <Route path='/medicine' element={<Medicines/>}/>
                 <Route path='/user' element={<UserDashboard/>}/>
                 <Route path='/aboutMedicine' element={<MedicinePage/>}/>
+                <Route path='/present' element={<ViewPrescriptions/>}/>
+                <Route path='/upload' element={<UploadDocuments/>}/>
+                <Route path='/present' element={<ViewPrescriptions/>}/>
+                <Route path='/info' element={<BillingInfo/>}/>
+                <Route path='/notifi' element={<Notification/>}/>
+                <Route path='/account' element={<AccountInfo/>}/>
+                <Route path='/change' element={<ChangePassword/>}/>
             </Routes>
         </BrowserRouter>
     )
