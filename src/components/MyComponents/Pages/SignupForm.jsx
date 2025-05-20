@@ -3,7 +3,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import stethoscopeBg from '../../../assets/stethoscope.jpg'; // adjust path as needed
 import HomePageHeader from '../UI/HomePageHeader';
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router';
+import axios from 'axios';
 const SignupForm = () => {
     // State to handle input values (for form handling and validation)
     const [formData, setFormData] = useState({
@@ -27,9 +28,52 @@ const SignupForm = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Add form validation and submission logic here
+        // Example validation of password match
+        console.log(formData);
+        if (formData.password !== formData.confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        // Example validation of email format
+        if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            alert("Invalid email format");
+            return;
+        }
+        try {
+            //this is to post the json file
+            const responce = await axios.post('http://localhost:8080/api/auth/register', {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                password: formData.password,
+                confirmPassword:formData.confirmPassword,
+                phone: formData.phone,
+                company: formData.company
+            });
+
+            //give alert
+            alert('Registration successful!');
+
+            //Clean the field of User Interface
+            setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                phone: '',
+                company: ''
+            });
+            navigate('/login');
+        }
+        catch (err) {
+            console.error('Registration error:', err.response);
+            alert(err.response?.data || 'Registration failed. Please try again.')
+        }
+
     };
 
     return (
@@ -44,6 +88,7 @@ const SignupForm = () => {
 
                     <form className="space-y-4 pt-3 " onSubmit={handleSubmit}>
                         <div className="flex space-x-4">
+                            {/* first name */}
                             <div className="w-1/2">
                                 <label htmlFor="firstName" className="block font-medium text-gray-700">First Name</label>
                                 <input
@@ -56,6 +101,7 @@ const SignupForm = () => {
                                     placeholder="John"
                                 />
                             </div>
+                            {/* Last Name */}
                             <div className="w-1/2">
                                 <label htmlFor="lastName" className="block font-medium text-gray-700">Last Name</label>
                                 <input
@@ -69,8 +115,7 @@ const SignupForm = () => {
                                 />
                             </div>
                         </div>
-
-
+                        {/* Email */}
                         <div>
                             <label htmlFor="email" className="block font-medium text-gray-700">Email Address</label>
                             <input
@@ -82,10 +127,9 @@ const SignupForm = () => {
                                 placeholder="example@email.com"
                                 className="w-full px-4 py-2 mt-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
                             />
-
                         </div>
                         <div className="flex space-x-4">
-
+                            {/* Password */}
                             <div className='w-1/2'>
                                 <label htmlFor="password" className="block font-medium text-gray-700">Password</label>
                                 <input
@@ -98,6 +142,7 @@ const SignupForm = () => {
                                     className="w-full px-4 py-2 mt-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 />
                             </div>
+                            {/* Confirm password */}
                             <div className='w-1/2'>
                                 <label htmlFor="confirmPassword" className="block font-medium text-gray-700">Confirm Password</label>
                                 <input
@@ -112,7 +157,7 @@ const SignupForm = () => {
                             </div>
                         </div>
                         <div className="flex space-x-4">
-
+                            {/* Phone */}
                             <div className="w-1/2">
                                 <label htmlFor="phone" className="block font-medium text-gray-700">Phone Number</label>
                                 <input
@@ -125,7 +170,7 @@ const SignupForm = () => {
                                     className="w-full px-4 py-2 mt-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 />
                             </div>
-
+                            {/* Company */}
                             <div className='w-1/2'>
                                 <label htmlFor="company" className="block font-medium text-gray-700">Company</label>
                                 <input
@@ -139,14 +184,8 @@ const SignupForm = () => {
                                 />
                             </div>
                         </div>
-                        <button
-                            type="submit"
-                            className="hover:shadow-xl shadow-md duration-300 w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl transition-all"
-                        >
-                            Sign Up
-                        </button>
+                        <button onClick={handleSubmit} type="submit" className="hover:shadow-xl shadow-md duration-300 w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl transition-all">Sign Up</button>
                     </form>
-
                     <div className="my-4 flex items-center justify-between">
                         <hr className="w-1/3 border-gray-300" />
                         <span className="text-gray-500 text-sm">or continue with</span>

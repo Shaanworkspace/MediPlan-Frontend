@@ -19,23 +19,30 @@ const LoginForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // ✅ Prevent page reload on form submission
-        setFormData({ email: '', password: '' }); // ✅ Clear the form fields
-        const data = {
-            "email" : formData.email,
-            "password":formData.password
+        console.log(formData);
+        // Example validation of email format
+        if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            alert("Invalid email format");
+            return;
         }
-        console.log(data);
+        try {
+            const response = await axios.post('http://localhost:8080/api/auth/login', {
+                email: formData.email,
+                password: formData.password
+            });
+            //give alert
+            alert('Login successful!');
 
-        try{
-            const resp = await axios.post("http://localhost:8080/api/auth/loginUser", data);
-            console.log(resp.data);
-            if(!resp.data){
-                alert("invalid");
-            }else{
-                alert("success");
-            }
-        }catch(error){
-            console.error(error);
+            //Clean the field of User Interface
+            setFormData({
+                email: '',
+                password: '',
+            });
+            
+            navigate('/login');
+        }catch(err){
+            console.error('Login failed:', err.response);
+            alert(err.response?.data || 'Login failed. Please try again.')
         }
     };
 
