@@ -123,10 +123,10 @@ const HomePage = () => {
 		<div className='bg-[#E6E6FA]'>
 			{/* Navbar */}
 			<div className="fixed top-0 left-0 w-full z-1">
-				<HomeHeader />
+				<HomeHeader/>
 			</div>
 			{/* Page 1 */}
-			<section className='bg-[#E6E6FA] mt-16 sm:mt-10' >
+			<section className='bg-[#E6E6FA] mt-16 sm:mt-16 ' >
 				<div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8 bg-[#E6E6FA]">
 					<div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:items-center md:gap-8">
 						<div>
@@ -134,11 +134,9 @@ const HomePage = () => {
 								<h2 className="text-3xl font-semibold text-gray-800 sm:text-5xl sm:font-bold">
 									Your health journey, simplified..
 								</h2>
-
 								<p className="mt-4 text-gray-700 sm:text-xl">
 									Your health is our priority. Stay on track with your medication and stay in control of your well-being. Easy reminders. Personalized care.
 								</p>
-
 								<div>
 									<button type="button" onClick={() => handleNavigation('/login')} className="hover:shadow-xl shadow-md transition duration-300 mt-3 text-gray-900 bg-blue-300 hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-blue-400 dark:border-gray-700 dark:text-gray-900 dark:hover:bg-blue-200 me-2 mb-2">
 										<span className='text-xl'>
@@ -191,7 +189,7 @@ const HomePage = () => {
 								</select>
 							</div>
 							{/* Desktop Tabs */}
-							<ul className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400 rtl:divide-x-reverse">
+							<ul className="hidden text-sm font-medium text-center text-black divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600  rtl:divide-x-reverse">
 								{["stats", "about", "faq"].map((tab) => (
 									<li key={tab} className="w-full flex justify-evenly">
 										<button

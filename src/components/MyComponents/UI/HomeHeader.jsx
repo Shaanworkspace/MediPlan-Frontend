@@ -26,7 +26,7 @@ const HomeHeader = () => {
                 <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <div onClick={() => handleNavigation('/')} className="flex-1 md:flex md:items-center md:gap-12">
-                            <div className='text-black font-semibold text-4xl cursor-pointer'>
+                            <div className='text-black font-semibold text-2xl sm:text-3xl md:text-4xl cursor-pointer'>
                                 MediPlan
                             </div>
                         </div>

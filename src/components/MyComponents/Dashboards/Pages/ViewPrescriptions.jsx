@@ -1,6 +1,8 @@
 import React from 'react';
 import { FiFileText, FiDownload, FiCalendar, FiUser, FiTablet, FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import DashboardSidebar from './DashboardSidebar';
+import HeaderPage from '../../UI/HeaderPage';
 
 const ViewPrescriptions = () => {
   const prescriptions = [
@@ -30,81 +32,11 @@ const ViewPrescriptions = () => {
   return (
     <div className="min-h-screen bg-[#E6E6FA] flex flex-col">
       {/* Header */}
-      <header className="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-50">
-        <div className="text-2xl font-bold text-blue-600">MediPlan</div>
-        <nav className="flex space-x-6 text-gray-700 items-center">
-          <Link to="/dashboard" className="flex items-center hover:text-blue-600">
-            <FiCalendar className="mr-1" /> Dashboard
-          </Link>
-          <Link to="/appointments" className="flex items-center hover:text-blue-600">
-            <FiFileText className="mr-1" /> Appointments
-          </Link>
-          <Link to="/history" className="flex items-center hover:text-blue-600">
-            <FiCalendar className="mr-1" /> History
-          </Link>
-          <Link to="/profile" className="flex items-center hover:text-blue-600">
-            <FiUser className="mr-1" /> Profile
-          </Link>
-          <Link to="/logout" className="flex items-center text-red-500 font-medium hover:text-red-600">
-            Logout
-          </Link>
-        </nav>
-      </header>
-
+      <HeaderPage ButtonText={"Log out"} />
       {/* Main Content */}
-      <main className="flex flex-col lg:flex-row flex-grow">
+      <main className="flex flex-col lg:flex-row flex-grow mt-17">
         {/* Sidebar */}
-        <aside className="lg:w-1/4 w-full bg-white p-6 shadow-lg space-y-6">
-          <div>
-            <h2 className="text-lg font-semibold text-blue-600 mb-4 flex items-center">
-              <FiFileText className="mr-2" /> Quick Actions
-            </h2>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/book-appointment" className="w-full flex items-center px-4 py-3 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition">
-                  <FiCalendar className="mr-2" /> Book Appointment
-                </Link>
-              </li>
-              <li>
-                <Link to="/view-prescriptions" className="w-full flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg transition">
-                  <FiFileText className="mr-2" /> View Prescriptions
-                </Link>
-              </li>
-              <li>
-                <Link to="/upload-documents" className="w-full flex items-center px-4 py-3 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition">
-                  <FiFileText className="mr-2" /> Upload Documents
-                </Link>
-              </li>
-              <li>
-                <Link to="/billing-info" className="w-full flex items-center px-4 py-3 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition">
-                  <FiFileText className="mr-2" /> Billing Info
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold text-blue-600 mb-4 flex items-center">
-              <FiUser className="mr-2" /> Settings
-            </h2>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/notification" className="w-full flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg transition">
-                  <FiFileText className="mr-2" /> Notification
-                </Link>
-              </li>
-              <li>
-                <Link to="/account-info" className="w-full flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg transition">
-                  <FiUser className="mr-2" /> Account Info
-                </Link>
-              </li>
-              <li>
-                <Link to="/change-password" className="w-full flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg transition">
-                  <FiFileText className="mr-2" /> Change Password
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </aside>
+        <DashboardSidebar/>
 
         {/* Main Section */}
         <section className="flex-1 p-8 space-y-8 overflow-auto">

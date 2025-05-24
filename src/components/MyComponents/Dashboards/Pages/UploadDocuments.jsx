@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { FiUpload, FiFileText, FiCalendar, FiUser, FiArrowLeft, FiTrash2, FiPaperclip, FiDownload } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import HeaderPage from '../UI/HeaderPage';
+import HeaderPage from '../../UI/HeaderPage';
+import DashboardSidebar from './DashboardSidebar';
 
 const UploadDocuments = () => {
     const [files, setFiles] = useState([]);
@@ -54,62 +55,12 @@ const UploadDocuments = () => {
     return (
         <div className="min-h-screen bg-[#E6E6FA] flex flex-col">
             {/* Header */}
-            <HeaderPage />
+            <HeaderPage ButtonText={"Log out"} />
 
             {/* Main Content */}
-            <main className="flex flex-col lg:flex-row flex-grow">
+            <main className="flex flex-col lg:flex-row flex-grow  mt-17">
                 {/* Sidebar */}
-                <aside className="lg:w-1/4 w-full bg-white p-6 shadow-lg space-y-6">
-                    <div>
-                        <h2 className="text-lg font-semibold text-blue-600 mb-4 flex items-center">
-                            <FiFileText className="mr-2" /> Quick Actions
-                        </h2>
-                        <ul className="space-y-3">
-                            <li>
-                                <Link to="/book-appointment" className="w-full flex items-center px-4 py-3 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition">
-                                    <FiCalendar className="mr-2" /> Book Appointment
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/view-prescriptions" className="w-full flex items-center px-4 py-3 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition">
-                                    <FiFileText className="mr-2" /> View Prescriptions
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/upload-documents" className="w-full flex items-center px-4 py-3 bg-blue-600 text-white rounded-lg transition">
-                                    <FiUpload className="mr-2" /> Upload Documents
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/billing-info" className="w-full flex items-center px-4 py-3 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition">
-                                    <FiFileText className="mr-2" /> Billing Info
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h2 className="text-lg font-semibold text-blue-600 mb-4 flex items-center">
-                            <FiUser className="mr-2" /> Settings
-                        </h2>
-                        <ul className="space-y-3">
-                            <li>
-                                <Link to="/notification" className="w-full flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg transition">
-                                    <FiFileText className="mr-2" /> Notification
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/account-info" className="w-full flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg transition">
-                                    <FiUser className="mr-2" /> Account Info
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/change-password" className="w-full flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg transition">
-                                    <FiFileText className="mr-2" /> Change Password
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </aside>
+                <DashboardSidebar/>
 
                 {/* Main Section */}
                 <section className="flex-1 p-8 space-y-8 overflow-auto">

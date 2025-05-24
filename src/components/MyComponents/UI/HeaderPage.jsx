@@ -48,7 +48,7 @@ const HeaderPage= ({ButtonText, onToggle  }) => {
                                     <li>
                                         <a
                                             className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                            onClick={()=>{handleNavigation('/appointment')}}
+                                            onClick={()=>{handleNavigation('/book-appointment')}}
                                         >
                                             Appointment
                                         </a>

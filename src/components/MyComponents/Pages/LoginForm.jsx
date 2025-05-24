@@ -5,51 +5,70 @@ import { FaGithub } from "react-icons/fa";
 import HomePageHeader from "../UI/HomePageHeader";
 import axios from "axios";
 
-
-
 const LoginForm = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
+    const navigate = useNavigate();
+
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // ✅ Prevent page reload on form submission
-        console.log(formData);
-        // Example validation of email format
+        e.preventDefault(); // Prevent page reload on form submission
+        setError(null);
+        setSuccess(null);
+
+        // Validate email format
         if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            alert("Invalid email format");
+            setError("Invalid email format");
             return;
         }
+
         try {
             const response = await axios.post('http://localhost:8080/api/auth/login', {
                 email: formData.email,
                 password: formData.password
             });
-            //give alert
-            alert('Login successful!');
 
-            //Clean the field of User Interface
+            const { token, roles } = response.data;
+
+            // Store token and roles in localStorage
+            localStorage.setItem('token', token);
+            localStorage.setItem('roles', JSON.stringify(roles));
+
+            // Clear the form fields
             setFormData({
                 email: '',
                 password: '',
             });
-            
-            navigate('/login');
-        }catch(err){
+
+            setSuccess('Login successful! Redirecting...');
+
+            // Redirect based on role
+            if (roles.includes('ADMIN')) {
+                navigate('/admin-dashboard');
+            } else if (roles.includes('PATIENT') || roles.includes('DOCTOR') || roles.includes('CARE_GIVER')) {
+                navigate('/user-dashboard');
+            } else {
+                setError('Unknown role. Please contact support.');
+                navigate('/error');
+            }
+        } catch (err) {
             console.error('Login failed:', err.response);
-            alert(err.response?.data || 'Login failed. Please try again.')
+            setError(err.response?.data?.error || 'Login failed. Please try again.');
         }
     };
 
-    const navigate = useNavigate();
     const handleNavigation = (route) => {
         navigate(route);
     };
+
     return (
         <div className="bg-[#E6E6FA]">
             {/* Navbar */}
@@ -57,10 +76,21 @@ const LoginForm = () => {
                 <HomePageHeader />
             </div>
             <div className="mt-8 sm:mt-4 min-h-screen mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 bg-cover bg-center flex flex-col items-center justify-center">
-                <div className=" bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-xl w-full max-w-lg mx-4">
+                <div className="bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-xl w-full max-w-lg mx-4">
                     <h2 className="text-3xl font-bold text-center text-black mb-6">
                         Welcome to MediPlan
                     </h2>
+
+                    {error && (
+                        <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+                            {error}
+                        </div>
+                    )}
+                    {success && (
+                        <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+                            {success}
+                        </div>
+                    )}
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
                         <div>
@@ -78,6 +108,7 @@ const LoginForm = () => {
                                 onChange={handleInputChange}
                                 placeholder="example@email.com"
                                 className="w-full px-4 py-2 mt-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                required
                             />
                         </div>
                         <div>
@@ -95,12 +126,12 @@ const LoginForm = () => {
                                 value={formData.password}
                                 placeholder="********"
                                 className="w-full px-4 py-2 mt-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                required
                             />
                         </div>
 
                         <div>
                             <button
-                                onClick={handleSubmit}
                                 type="submit"
                                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl transition-all"
                             >
@@ -130,9 +161,7 @@ const LoginForm = () => {
                         Don’t have an account?{" "}
                         <a
                             href="#"
-                            onClick={() => {
-                                handleNavigation("/signup");
-                            }}
+                            onClick={() => handleNavigation("/signup")}
                             className="text-blue-600 underline"
                         >
                             Sign up

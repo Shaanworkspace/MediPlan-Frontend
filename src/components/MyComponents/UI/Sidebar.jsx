@@ -6,10 +6,9 @@ import {
     Stethoscope,
     User,
 } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+
 import { Link, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
+
 
 const routes = [
     { title: "Dashboard", icon: Home, href: "/user" },
