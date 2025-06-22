@@ -36,11 +36,13 @@ const LoginForm = () => {
                 password: formData.password
             });
 
-            const { token, roles } = response.data;
-
-            // Store token and roles in localStorage
+            const { token, roles, firstName, lastName } = response.data;
+            // Combine firstName and lastName for display
+            const adminName = `${firstName} ${lastName}`.trim() || 'Admin'; // Fallback to 'Admin' if empty
+            // Store token and roles in localStorage (key , value) pairs
             localStorage.setItem('token', token);
             localStorage.setItem('roles', JSON.stringify(roles));
+            localStorage.setItem('adminName', adminName); // Store admin name for fallback
 
             // Clear the form fields
             setFormData({
@@ -50,9 +52,10 @@ const LoginForm = () => {
 
             setSuccess('Login successful! Redirecting...');
 
+            
             // Redirect based on role
             if (roles.includes('ADMIN')) {
-                navigate('/admin-dashboard');
+                navigate('/admin-dashboard', { state: { adminName } });
             } else if (roles.includes('PATIENT') || roles.includes('DOCTOR') || roles.includes('CARE_GIVER')) {
                 navigate('/user-dashboard');
             } else {

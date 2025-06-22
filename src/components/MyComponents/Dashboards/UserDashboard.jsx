@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { FiCalendar, FiFileText, FiUpload, FiDollarSign, FiBell, FiUser, FiLock, FiClock, FiTablet, FiEye, FiPlus } from 'react-icons/fi';
 import { useNavigate } from 'react-router'
 import HeaderPage from '../UI/HeaderPage';
 import { Sidebar } from '../UI/Sidebar';
 import DashboardSidebar from './Pages/DashboardSidebar';
+import axios from "axios";
+
 
 const UserDashboard = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [reminder, setReminder] = useState({ name: '', date: '', time: '' });
     const navigate = useNavigate(); 
+    
     const handleNavigation = (route) => {
 		navigate(route);
 	}
