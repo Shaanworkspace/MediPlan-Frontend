@@ -2,28 +2,30 @@ import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router"
 import React from "react";
 import './App.css'
-import HomePage from './components/MyComponents/Pages/HomePage'
-import LoginForm from './components/MyComponents/Pages/LoginForm'
-import SignupForm from './components/MyComponents/Pages/SignupForm'
-import ErrorPage from './components/MyComponents/UI/ErrorPage'
-import Contact from './components/MyComponents/FeaturePages/Contact'
-import Appointment from './components/MyComponents/FeaturePages/Appointment'
-import Reports from './components/MyComponents/FeaturePages/Reports'
-import UserDashboard from './components/MyComponents/Dashboards/UserDashboard'
-import Medicines from './components/MyComponents/FeaturePages/Symptoms';
-import MedicinePage from './components/MyComponents/FeaturePages/MedicinePage';
-import ViewPrescriptions from './components/MyComponents/Dashboards/Pages/ViewPrescriptions';
-import UploadDocuments from './components/MyComponents/Dashboards/Pages/UploadDocuments';
-import BillingInfo from './components/MyComponents/Dashboards/Pages/BillingInfo';
-import Notification from './components/MyComponents/Dashboards/Pages/Notification';
-import AccountInfo from './components/MyComponents/Dashboards/Pages/AccountInfo';
-import ChangePassword from './components/MyComponents/Dashboards/Pages/ChangePassword';
-import AdminDashboard from './components/MyComponents/Dashboards/AdminDashboard';
+import HomePage from './MyComponents/Pages/HomePage'
+import LoginForm from './MyComponents/Pages/LoginForm'
+import SignupForm from './MyComponents/Pages/SignupForm'
+import ErrorPage from './MyComponents/UI/ErrorPage'
+import Contact from './MyComponents/FeaturePages/Contact'
+import Appointment from './MyComponents/FeaturePages/Appointment'
+import Reports from './MyComponents/FeaturePages/Reports'
+import UserDashboard from './MyComponents/Dashboards/UserDashboard'
+import Medicines from './MyComponents/FeaturePages/Symptoms';
+import MedicinePage from './MyComponents/FeaturePages/MedicinePage';
+import ViewPrescriptions from './MyComponents/Dashboards/Pages/ViewPrescriptions';
+import UploadDocuments from './MyComponents/Dashboards/Pages/UploadDocuments';
+import BillingInfo from './MyComponents/Dashboards/Pages/BillingInfo';
+import Notification from './MyComponents/Dashboards/Pages/Notification';
+import AccountInfo from './MyComponents/Dashboards/Pages/AccountInfo';
+import ChangePassword from './MyComponents/Dashboards/Pages/ChangePassword';
+import AdminDashboard from './MyComponents/Dashboards/Admin/AdminDashboard';
+import DoctorPage from './MyComponents/Pages/Utilities/DoctorPage';
+import AboutPage from './MyComponents/UI/AboutPage';
 
 
 function App() {
-    const [count, setCount] = useState(0);
     return (
+        
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<HomePage/>}/>
@@ -42,8 +44,10 @@ function App() {
                 <Route path='/info' element={<BillingInfo/>}/>
                 <Route path='/notification' element={<Notification/>}/>
                 <Route path='/account-info' element={<AccountInfo/>}/>
+                <Route path='/about' element={<AboutPage/>}/>
                 <Route path='/change-password' element={<ChangePassword/>}/>
                 <Route path='/admin-dashboard' element={<AdminDashboard/>}/>
+                <Route path='/public-doctor' element={<DoctorPage/>}/>
                 <Route path='/error' element={<ErrorPage/>}/>
             </Routes>
         </BrowserRouter>

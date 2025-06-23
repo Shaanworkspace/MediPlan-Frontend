@@ -45,9 +45,9 @@ const HomeHeader = () => {
                                     <li>
                                         <a
                                             className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                            onClick={() => handleNavigation('/features')}
+                                            onClick={() => handleNavigation('/public-doctor')}
                                         >
-                                            Features
+                                            Search Doctors
                                         </a>
                                     </li>
                                     <li>
@@ -113,7 +113,7 @@ const HomeHeader = () => {
                 <div className="fixed inset-0 top-[4.5rem] z-[51] bg-[#E6E6FA] p-3 md:hidden shadow-md h-80">
                     <ul className="flex flex-col gap-1 text-lg font-medium text-gray-800">
                         <li onClick={() => handleNavigation("/")} className="cursor-pointer humburger">Home</li>
-                        <li onClick={() => handleNavigation("/features")} className="cursor-pointer humburger">Features</li>
+                        <li onClick={() => handleNavigation("/public-doctor")} className="cursor-pointer humburger">Search Doctors</li>
                         <li onClick={() => handleNavigation("/about")} className="cursor-pointer humburger">About</li>
                         <li onClick={() => handleNavigation("/contact")} className="cursor-pointer humburger">Contact</li>
                         <li onClick={() => handleNavigation("/login")} className="cursor-pointer humburger">Login</li>

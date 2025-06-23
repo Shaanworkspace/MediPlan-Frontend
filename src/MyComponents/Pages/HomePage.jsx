@@ -118,7 +118,8 @@ const HomePage = () => {
 			description: 'Reminders for Treatment',
 		},
 	];
-
+    const apiUrl = import.meta.env.VITE_API_BASE_URL;
+    console.log(apiUrl)
 	return (
 		<div className='bg-[#E6E6FA]'>
 			{/* Navbar */}
