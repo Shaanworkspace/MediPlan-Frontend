@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-const HeaderPage = ({ ButtonText, onToggleSidebar }) => {
+const HeaderPage = ({ adminName, ButtonText, onToggleSidebar }) => {
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -27,8 +27,8 @@ const HeaderPage = ({ ButtonText, onToggleSidebar }) => {
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     <div onClick={() => handleNavigation('/')} className="flex-1 md:flex md:items-center md:gap-12">
-                        <div className="text-black font-semibold text-4xl">
-                            MediPlan
+                        <div className="text-black font-semibold text-3xl">
+                            <span className='text-md text-black'>Stay Fit 😊, </span> <span className='text-md text-blue-600'>{adminName} !! </span>
                         </div>
                     </div>
 

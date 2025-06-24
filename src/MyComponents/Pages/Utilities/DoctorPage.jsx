@@ -1,31 +1,46 @@
-"use client";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
 import { Search } from "lucide-react";
 import HomeHeader from "../../UI/HomeHeader";
-
+import axios from "axios";
 // Dummy Doctor Data
-const doctors = [
-    { id: 1, name: "Dr. A.K. Sharma", phone: "9871112222", email: "ak.sharma@hospital.com", specialization: "Cardiology", photo: "https://via.placeholder.com/50" },
-    { id: 2, name: "Dr. Meena Rao", phone: "9866543210", email: "meena.rao@hospital.com", specialization: "Neurology", photo: "https://via.placeholder.com/50" },
-    { id: 3, name: "Dr. Rohit Bansal", phone: "9855554444", email: "rohit.b@hospital.com", specialization: "Orthopedics", photo: "https://via.placeholder.com/50" },
-    { id: 4, name: "Dr. Priya Mehta", phone: "9844445555", email: "priya.mehta@hospital.com", specialization: "Pediatrics", photo: "https://via.placeholder.com/50" },
-    { id: 5, name: "Dr. Sanjay Patel", phone: "9833336666", email: "sanjay.patel@hospital.com", specialization: "Dermatology", photo: "https://via.placeholder.com/50" },
+const DemoDoctors = [
+    { id: 1, firstName: "A.K.", lastName: "Sharma", phoneNumber: "9871112222", email: "ak.sharma@hospital.com", specialty: "Cardiology", photo: "https://via.placeholder.com/50" },
+    { id: 2, firstName: "Meena", lastName: "Rao", phoneNumber: "9866543210", email: "meena.rao@hospital.com", specialty: "Neurology", photo: "https://via.placeholder.com/50" },
+    { id: 3, firstName: "Rohit", lastName: "Bansal", phoneNumber: "9855554444", email: "rohit.b@hospital.com", specialty: "Orthopedics", photo: "https://via.placeholder.com/50" },
+    { id: 4, firstName: "Priya", lastName: "Mehta", phoneNumber: "9844445555", email: "priya.mehta@hospital.com", specialty: "Pediatrics", photo: "https://via.placeholder.com/50" },
+    { id: 5, firstName: "Sanjay", lastName: "Patel", phoneNumber: "9833336666", email: "sanjay.patel@hospital.com", specialty: "Dermatology", photo: "https://via.placeholder.com/50" },
 ];
 
 export default function DoctorPage() {
     const [searchTerm, setSearchTerm] = useState("");
+    const [doctors, setDoctors] = useState([]);
     const [searchBy, setSearchBy] = useState("specialization");
-
+    const doctorList = axios.get(`${import.meta.env.VITE_API_BASE_URL}/doctor/all`);
+    console.log(doctorList);
+    // Fetch doctors from API
+    useEffect(() => {
+        const fetchDoctor = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/doctor/all`);
+                console.log("API Response:", response.data);
+                setDoctors(response.data);
+            } catch (error) {
+                console.error("Error fetching doctors, using DemoDoctors:", error);
+                setDoctors(DemoDoctors);
+            }
+        };
+        fetchDoctor();
+    }, []);
     const filteredDoctors = doctors.filter((doctor) => {
         if (searchBy === "specialization") {
-            return doctor.specialization.toLowerCase().includes(searchTerm.toLowerCase());
+            return doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase());
         } else if (searchBy === "name") {
-            return doctor.name.toLowerCase().includes(searchTerm.toLowerCase());
+            return doctor.firstName.toLowerCase().includes(searchTerm.toLowerCase());
         } else if (searchBy === "phone") {
-            return doctor.phone.toLowerCase().includes(searchTerm.toLowerCase());
+            return doctor.phoneNumber.toLowerCase().includes(searchTerm.toLowerCase());
         }
         return true;
     });
@@ -65,12 +80,13 @@ export default function DoctorPage() {
                     {filteredDoctors.map((doctor) => (
                         <Card key={doctor.id} className="overflow-hidden">
                             <CardHeader className="flex flex-row items-center p-4">
-                                <img src={doctor.photo} alt={doctor.name} className="w-12 h-12 rounded-full mr-4" />
-                                <CardTitle className="text-lg">{doctor.name}</CardTitle>
+                                <img src={doctor.photo || "https://via.placeholder.com/50"}
+                                    alt={`${doctor.firstName} ${doctor.lastName}`} className="w-12 h-12 rounded-full mr-4" />
+                                <CardTitle className="text-lg">{doctor.firstName}</CardTitle>
                             </CardHeader>
                             <CardContent className="p-4">
-                                <p className="text-sm text-gray-600">Specialization: {doctor.specialization}</p>
-                                <p className="text-sm text-gray-600">Phone: {doctor.phone}</p>
+                                <p className="text-sm text-gray-600">Specialization: {doctor.specialty}</p>
+                                <p className="text-sm text-gray-600">Phone: {doctor.phoneNumber}</p>
                                 <p className="text-sm text-gray-600">Email: {doctor.email}</p>
                             </CardContent>
                             <CardFooter className="p-4">

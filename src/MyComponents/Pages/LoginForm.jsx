@@ -4,6 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import HomePageHeader from "../UI/HomePageHeader";
 import axios from "axios";
+import HomeHeader from "../UI/HomeHeader";
 
 const LoginForm = () => {
     const [formData, setFormData] = useState({
@@ -31,28 +32,31 @@ const LoginForm = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/login', {
+            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, {
                 email: formData.email,
                 password: formData.password
             });
+            console.log(response.data);
 
-            const { token, roles, firstName, lastName } = response.data;
+            const { token, roles, firstName, lastName, email } = response.data;
             // Combine firstName and lastName for display
             const adminName = `${firstName} ${lastName}`.trim() || 'Admin'; // Fallback to 'Admin' if empty
+
             // Store token and roles in localStorage (key , value) pairs
             localStorage.setItem('token', token);
             localStorage.setItem('roles', JSON.stringify(roles));
             localStorage.setItem('adminName', adminName); // Store admin name for fallback
+            localStorage.setItem("email", response.data.username); // Assuming backend returns email
+            
+            const idByEmail = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/patient/email/${response.data.username}`);
+            localStorage.setItem("id", idByEmail.data.id);
 
             // Clear the form fields
             setFormData({
                 email: '',
                 password: '',
             });
-
             setSuccess('Login successful! Redirecting...');
-
-            
             // Redirect based on role
             if (roles.includes('ADMIN')) {
                 navigate('/admin-dashboard', { state: { adminName } });
@@ -76,7 +80,7 @@ const LoginForm = () => {
         <div className="bg-[#E6E6FA]">
             {/* Navbar */}
             <div className="fixed top-0 left-0 w-full z-1">
-                <HomePageHeader />
+                <HomeHeader />
             </div>
             <div className="mt-8 sm:mt-4 min-h-screen mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 bg-cover bg-center flex flex-col items-center justify-center">
                 <div className="bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-xl w-full max-w-lg mx-4">

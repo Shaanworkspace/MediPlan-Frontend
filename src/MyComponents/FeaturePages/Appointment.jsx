@@ -2,10 +2,35 @@ import React, { useState } from 'react';
 import HomePageHeader from '../UI/HomePageHeader';
 import HomeHeader from '../UI/HomeHeader';
 import HeaderPage from '../UI/HeaderPage';
-
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/Textarea";
+import axios from 'axios';
 const Appointment = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [savedSteps, setSavedSteps] = useState([]);
+    const adminName = localStorage.getItem('adminName') || 'Admin';
+    const [appointmentData, setAppointmentData] = useState({
+        user: {
+            id: null, // or set the logged-in user's ID here if available
+        },
+        appointmentDateTime: '',
+        doctorSpecialization: '',
+        doctorName: '',
+        appointmentMode: '',
+        reasonForAppointment: '',
+        previousMedicalConditions: '',
+        medications: '',
+        allergies: '',
+        insuranceProvider: '',
+        policyNumber: '',
+        insuranceDocument: null,
+        medicalReport: null,
+        prescription: null,
+        paymentMode: '',
+        paymentReceipt: null,
+        patientConsent: false,
+        additionalNotes: '',
+    });
     const steps = [
         'Personal Info',
         'Appointment Details',
@@ -15,6 +40,70 @@ const Appointment = () => {
         'Payment',
         'Confirmation',
     ];
+    const handleSubmitAppointment = async () => {
+        const email = localStorage.getItem('email');
+        const userId = localStorage.getItem('id');
+        const token = localStorage.getItem("token");
+
+        if (!email || !userId || !token) {
+            alert("User session expired. Please login again.");
+            return;
+        }
+
+        try {
+            // Set the user ID inside appointmentData
+            const formData = new FormData();
+
+            // ✅ Correct way to nest object in FormData (Spring can't read 'user.id' unless manually mapped)
+            formData.append('userId', userId); // send as separate field
+            formData.append('appointmentDateTime', appointmentData.appointmentDateTime);
+            formData.append('doctorSpecialization', appointmentData.doctorSpecialization);
+            formData.append('doctorName', appointmentData.doctorName);
+            formData.append('appointmentMode', appointmentData.appointmentMode);
+            formData.append('reasonForAppointment', appointmentData.reasonForAppointment);
+            formData.append('previousMedicalConditions', appointmentData.previousMedicalConditions);
+            formData.append('medications', appointmentData.medications);
+            formData.append('allergies', appointmentData.allergies);
+            formData.append('insuranceProvider', appointmentData.insuranceProvider);
+            formData.append('policyNumber', appointmentData.policyNumber);
+            formData.append('paymentMode', appointmentData.paymentMode);
+            formData.append('patientConsent', appointmentData.patientConsent);
+            formData.append('additionalNotes', appointmentData.additionalNotes);
+
+            // 📎 Optional files
+            if (appointmentData.insuranceDocument) {
+                formData.append('insuranceDocument', appointmentData.insuranceDocument);
+            }
+            if (appointmentData.medicalReport) {
+                formData.append('medicalReport', appointmentData.medicalReport);
+            }
+            if (appointmentData.prescription) {
+                formData.append('prescription', appointmentData.prescription);
+            }
+            if (appointmentData.paymentReceipt) {
+                formData.append('paymentReceipt', appointmentData.paymentReceipt);
+            }
+
+            // 📤 API call
+            const res = await axios.post(
+                `${import.meta.env.VITE_API_BASE_URL}/appointment/create`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                }
+            );
+
+            alert('Appointment booked successfully!');
+            console.log(res.data);
+        } catch (err) {
+            console.error('❌ Error booking appointment:', err);
+            alert('Failed to book appointment. Please try again.');
+        }
+    };
+
 
     const handleNext = () => {
         if (currentStep < steps.length - 1) setCurrentStep(currentStep + 1);
@@ -62,100 +151,70 @@ const Appointment = () => {
                 return (
                     <div className="animate-slide-in space-y-4">
                         <h2 className="text-2xl font-semibold text-gray-800">1. Personal Information</h2>
-                        <div>
-                            <label className="block text-lg text-gray-700">Full Name</label>
-                            <input
-                                type="text"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
-                                placeholder="John Doe"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-lg text-gray-700">Date of Birth</label>
-                            <input
-                                type="date"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-lg text-gray-700">Gender</label>
-                            <select className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200">
-                                <option value="">Select Gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label className="block text-lg text-gray-700">Contact Number</label>
-                            <input
-                                type="text"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
-                                placeholder="+91-1234567890"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-lg text-gray-700">Email</label>
-                            <input
-                                type="email"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
-                                placeholder="johndoe@gmail.com"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-lg text-gray-700">Address</label>
-                            <textarea
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
-                                rows="3"
-                                placeholder="Street, City, State, Zip"
-                            ></textarea>
-                        </div>
+                        <div className='text-xl text-green-800'>Auto Filled, Move to next...</div>
                     </div>
                 );
             case 1:
                 return (
                     <div className="animate-slide-in space-y-4">
                         <h2 className="text-2xl font-semibold text-gray-800">2. Appointment Details</h2>
-                        <div>
-                            <label className="block text-lg text-gray-700">Appointment Date and Time</label>
-                            <input
-                                type="datetime-local"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
-                            />
+                        <div className='flex justify-between'>
+                            <div>
+                                <label className="block text-lg text-gray-700">Appointment Date and Time</label>
+                                <Input
+                                    type="datetime-local"
+                                    value={appointmentData.appointmentDateTime}
+                                    onChange={(e) =>
+                                        setAppointmentData({ ...appointmentData, appointmentDateTime: e.target.value })
+                                    }
+                                    className="w-full mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-lg text-gray-700">Doctor's Specialization</label>
+                                <select onChange={(e) =>
+                                    setAppointmentData({ ...appointmentData, doctorSpecialization: e.target.value })
+                                } value={appointmentData.doctorSpecialization} className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200">
+                                    <option value="">Select Specialization</option>
+                                    <option>Cardiology</option>
+                                    <option>Dermatology</option>
+                                    <option>Orthopedics</option>
+                                </select>
+                            </div>
                         </div>
-                        <div>
-                            <label className="block text-lg text-gray-700">Doctor's Specialization</label>
-                            <select className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200">
-                                <option value="">Select Specialization</option>
-                                <option>Cardiology</option>
-                                <option>Dermatology</option>
-                                <option>Orthopedics</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label className="block text-lg text-gray-700">Doctor's Name</label>
-                            <input
-                                type="text"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
-                                placeholder="Dr. Smith"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-lg text-gray-700">Preferred Mode of Appointment</label>
-                            <select className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200">
-                                <option value="">Select Mode</option>
-                                <option>In-person</option>
-                                <option>Online</option>
-                                <option>Phone</option>
-                            </select>
+                        <div className='flex justify-between'>
+
+                            <div>
+                                <label value={appointmentData.doctorName} className="block text-lg text-gray-700">Doctor's Name</label>
+                                <input
+                                    onChange={(e) =>
+                                        setAppointmentData({ ...appointmentData, doctorName: e.target.value })
+                                    }
+                                    type="text"
+                                    className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
+                                    placeholder="Dr. Smith"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-lg text-gray-700">Preferred Mode of Appointment</label>
+                                <select onChange={(e) => { setAppointmentData({ ...appointmentData, appointmentMode: e.target.value }) }} value={appointmentData.appointmentMode} className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200">
+                                    <option value="">Select Mode</option>
+                                    <option>In-person</option>
+                                    <option>Online</option>
+                                    <option>Phone</option>
+                                </select>
+                            </div>
                         </div>
                         <div>
                             <label className="block text-lg text-gray-700">Reason for Appointment</label>
-                            <textarea
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
-                                rows="3"
+                            <Textarea
+                                value={appointmentData.reasonForAppointment}
+                                onChange={(e) =>
+                                    setAppointmentData({ ...appointmentData, reasonForAppointment: e.target.value })
+                                }
                                 placeholder="E.g., Regular checkup, skin issue"
-                            ></textarea>
+                                className="mt-1"
+                            />
                         </div>
                     </div>
                 );
@@ -165,55 +224,87 @@ const Appointment = () => {
                         <h2 className="text-2xl font-semibold text-gray-800">3. Medical History</h2>
                         <div>
                             <label className="block text-lg text-gray-700">Previous Medical Conditions</label>
-                            <textarea
+                            <Textarea
+                                value={appointmentData.previousMedicalConditions}
+                                onChange={(e) =>
+                                    setAppointmentData({ ...appointmentData, previousMedicalConditions: e.target.value })
+                                }
                                 className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
                                 rows="3"
                                 placeholder="Diabetes, Hypertension, etc."
                             />
                         </div>
+
                         <div>
                             <label className="block text-lg text-gray-700">Medications</label>
-                            <textarea
+                            <Textarea
+                                value={appointmentData.medications}
+                                onChange={(e) =>
+                                    setAppointmentData({ ...appointmentData, medications: e.target.value })
+                                }
                                 className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
                                 rows="3"
                                 placeholder="List current medications"
                             />
                         </div>
+
                         <div>
                             <label className="block text-lg text-gray-700">Allergies</label>
-                            <textarea
+                            <Textarea
+                                value={appointmentData.allergies}
+                                onChange={(e) =>
+                                    setAppointmentData({ ...appointmentData, allergies: e.target.value })
+                                }
                                 className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
                                 rows="3"
                                 placeholder="Food, medication allergies, etc."
                             />
                         </div>
+
                     </div>
                 );
             case 3:
                 return (
                     <div className="animate-slide-in space-y-4">
                         <h2 className="text-2xl font-semibold text-gray-800">4. Insurance Details</h2>
+
                         <div>
                             <label className="block text-lg text-gray-700">Insurance Provider</label>
-                            <input
+                            <Input
                                 type="text"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
+                                value={appointmentData.insuranceProvider}
+                                onChange={(e) =>
+                                    setAppointmentData({ ...appointmentData, insuranceProvider: e.target.value })
+                                }
                                 placeholder="Max Bupa, Star Health, etc."
+                                className="mt-1"
                             />
                         </div>
+
                         <div>
                             <label className="block text-lg text-gray-700">Policy Number</label>
-                            <input
+                            <Input
                                 type="text"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
+                                value={appointmentData.policyNumber}
+                                onChange={(e) =>
+                                    setAppointmentData({ ...appointmentData, policyNumber: e.target.value })
+                                }
+                                className="mt-1"
                             />
                         </div>
+
                         <div>
                             <label className="block text-lg text-gray-700">Insurance Card Upload</label>
-                            <input
+                            <Input
                                 type="file"
                                 accept="image/*,.pdf"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
+                                onChange={(e) =>
+                                    setAppointmentData({
+                                        ...appointmentData,
+                                        insuranceDocument: e.target.files?.[0] || null,
+                                    })
+                                }
+                                className="mt-1"
                             />
                         </div>
                     </div>
@@ -222,20 +313,34 @@ const Appointment = () => {
                 return (
                     <div className="animate-slide-in space-y-4">
                         <h2 className="text-2xl font-semibold text-gray-800">5. Document/Report Upload</h2>
+
                         <div>
                             <label className="block text-lg text-gray-700">Medical Reports Upload</label>
-                            <input
+                            <Input
                                 type="file"
                                 accept="application/pdf,image/jpeg,image/png"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
+                                onChange={(e) =>
+                                    setAppointmentData({
+                                        ...appointmentData,
+                                        medicalReport: e.target.files?.[0] || null,
+                                    })
+                                }
+                                className="mt-1"
                             />
                         </div>
+
                         <div>
                             <label className="block text-lg text-gray-700">Prescription Upload</label>
-                            <input
+                            <Input
                                 type="file"
                                 accept="application/pdf,image/jpeg,image/png"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
+                                onChange={(e) =>
+                                    setAppointmentData({
+                                        ...appointmentData,
+                                        prescription: e.target.files?.[0] || null,
+                                    })
+                                }
+                                className="mt-1"
                             />
                         </div>
                     </div>
@@ -244,23 +349,39 @@ const Appointment = () => {
                 return (
                     <div className="animate-slide-in space-y-4">
                         <h2 className="text-2xl font-semibold text-gray-800">6. Payment Details</h2>
+
+
                         <div>
                             <label className="block text-lg text-gray-700">Payment Mode</label>
-                            <select className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200">
+                            <select
+                                value={appointmentData.paymentMode}
+                                onChange={(e) =>
+                                    setAppointmentData({ ...appointmentData, paymentMode: e.target.value })
+                                }
+                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
+                            >
                                 <option value="">Select Payment Method</option>
-                                <option>Credit/Debit Card</option>
-                                <option>UPI</option>
-                                <option>Net Banking</option>
+                                <option value="Card">Credit/Debit Card</option>
+                                <option value="UPI">UPI</option>
+                                <option value="NetBanking">Net Banking</option>
                             </select>
                         </div>
+
                         <div>
                             <label className="block text-lg text-gray-700">Payment Receipt Upload</label>
-                            <input
+                            <Input
                                 type="file"
                                 accept="application/pdf,image/*"
-                                className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
+                                onChange={(e) =>
+                                    setAppointmentData({
+                                        ...appointmentData,
+                                        paymentReceipt: e.target.files?.[0] || null,
+                                    })
+                                }
+                                className="mt-1"
                             />
                         </div>
+
                     </div>
                 );
             case 6:
@@ -270,18 +391,30 @@ const Appointment = () => {
                         <div>
                             <label className="block text-lg text-gray-700">Patient Consent</label>
                             <div className="flex items-center space-x-2">
-                                <input type="checkbox" className="w-5 h-5 text-teal-500 focus:ring-teal-500" />
+                                <input value={appointmentData.patientConsent} type="checkbox" className="w-5 h-5 text-teal-500 focus:ring-teal-500" />
                                 <span>I agree to the terms and conditions.</span>
                             </div>
                         </div>
                         <div>
                             <label className="block text-lg text-gray-700">Additional Notes</label>
-                            <textarea
+                            <Textarea
+                                value={appointmentData.additionalNotes}
+                                onChange={(e) =>
+                                    setAppointmentData({ ...appointmentData, additionalNotes: e.target.value })
+                                }
                                 className="w-full p-3 mt-1 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
                                 rows="3"
                                 placeholder="Mention any specific needs or instructions"
                             />
                         </div>
+                        <button
+                            type="button"
+                            onClick={handleSubmitAppointment}
+                            className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition mt-4"
+                        >
+                            Submit Appointment
+                        </button>
+
                     </div>
                 );
             default:
@@ -316,7 +449,7 @@ const Appointment = () => {
             </style>
             <div className="bg-[#E6E6FA] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="fixed top-0 left-0 w-full z-10">
-                    <HeaderPage/>
+                    <HeaderPage ButtonText={"Log out"} adminName={adminName} />
                 </div>
                 <div className="mt-20">
                     <div className="text-center">

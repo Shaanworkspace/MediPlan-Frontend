@@ -5,6 +5,7 @@ import { FiUser, FiMail, FiLock, FiPhone, FiUserCheck } from "react-icons/fi";
 import HomePageHeader from '../UI/HomePageHeader';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import HomeHeader from '../UI/HomeHeader';
 
 const SignupForm = () => {
     const [formData, setFormData] = useState({
@@ -92,13 +93,10 @@ const SignupForm = () => {
 
     return (
         <div className="bg-[#E6E6FA] min-h-screen">
-            {/* Navbar */}
-            <div className="fixed top-0 left-0 w-full z-10">
-                <HomePageHeader />
-            </div>
-
+            {/* Navbar */}     
+                <HomeHeader />
             {/* Main Content */}
-            <div className="pt-24 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+            <div className="pt-24 mt-4 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
                 <div className="bg-white bg-opacity-90 backdrop-blur-lg p-10 rounded-3xl shadow-2xl w-full max-w-3xl border border-blue-200 transform transition-all duration-300 hover:shadow-3xl">
                     <h2 className="text-4xl font-bold text-center text-blue-600 mb-8 tracking-tight">
                         Create Your Account
