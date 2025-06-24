@@ -3,7 +3,7 @@ import HomePageHeader from '../UI/HomePageHeader';
 import HomeHeader from '../UI/HomeHeader';
 import HeaderPage from '../UI/HeaderPage';
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/Textarea";
+import { Textarea } from "@/components/ui/textarea";
 import axios from 'axios';
 const Appointment = () => {
     const [currentStep, setCurrentStep] = useState(0);
