@@ -8,7 +8,7 @@ import { FiAlignJustify } from "react-icons/fi";
 import { FaYoutube, FaFacebook } from "react-icons/fa";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
-
+import femaleIcon from '../../images/female.svg'
 
 
 const HomePage = () => {
@@ -160,7 +160,7 @@ const HomePage = () => {
 
                         <div>
                             <img
-                                src="src/images/female.svg"
+                                src={femaleIcon}
                                 className="rounded "
                             />
                         </div>
