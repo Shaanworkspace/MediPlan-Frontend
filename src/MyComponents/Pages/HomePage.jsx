@@ -9,7 +9,7 @@ import { FaYoutube, FaFacebook } from "react-icons/fa";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import femaleIcon from '../../images/female.svg'
-
+import doctorImg from '../../assets/doctor.svg'
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState("stats");
@@ -222,7 +222,7 @@ const HomePage = () => {
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:items-center md:gap-8">
                         <div >
                             <img
-                                src="src/assets/doctor.svg"
+                                src={doctorImg}
                                 className="rounded "
                                 alt=""
                             />
