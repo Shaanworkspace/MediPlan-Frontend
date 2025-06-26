@@ -5,7 +5,7 @@ import { FaGithub } from "react-icons/fa";
 import HomePageHeader from "../UI/HomePageHeader";
 import axios from "axios";
 import HomeHeader from "../UI/HomeHeader";
-
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const LoginForm = () => {
     const [formData, setFormData] = useState({
         email: '',
@@ -47,7 +47,7 @@ const LoginForm = () => {
             localStorage.setItem('roles', JSON.stringify(roles));
             localStorage.setItem('adminName', adminName); // Store admin name for fallback
             localStorage.setItem("email", response.data.username); // Assuming backend returns email
-            
+
             const idByEmail = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/patient/email/${response.data.username}`);
             localStorage.setItem("id", idByEmail.data.id);
 
@@ -78,6 +78,43 @@ const LoginForm = () => {
 
     return (
         <div className="bg-[#E6E6FA]">
+            {/* Floating demo credentials */}
+            <div className="fixed top-24 right-8 z-50 flex flex-col gap-4">
+                <Card className="w-72 shadow-lg border-blue-400 border-2">
+                    <CardHeader>
+                        <CardTitle>Patient Demo</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="mb-2">
+                            <span className="font-semibold">Email:</span> neha.patel@patient.com
+                            <br />
+                            <span className="font-semibold">Password:</span> 1234
+                        </div>
+                        <div>
+                            <span className="font-semibold">Email:</span> vikram.rao@patient.com
+                            <br />
+                            <span className="font-semibold">Password:</span> 1234
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card className="w-72 shadow-lg border-green-400 border-2">
+                    <CardHeader>
+                        <CardTitle>Admin Demo</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="mb-2">
+                            <span className="font-semibold">Email:</span> ravi.kumar@admin.com
+                            <br />
+                            <span className="font-semibold">Password:</span> 1234
+                        </div>
+                        <div>
+                            <span className="font-semibold">Email:</span> anuj.singh@admin.com
+                            <br />
+                            <span className="font-semibold">Password:</span> 1234
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
             {/* Navbar */}
             <div className="fixed top-0 left-0 w-full z-1">
                 <HomeHeader />
