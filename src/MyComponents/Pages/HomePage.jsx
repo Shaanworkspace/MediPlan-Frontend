@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import HomeHeader from '../UI/HomeHeader'
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
@@ -13,12 +13,25 @@ import doctorImg from '../../assets/doctor.svg'
 import Footer from '../UI/Footer';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import InsightsSection from '../UI/InsightsSection';
+import axios from 'axios';
 
 
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState("stats");
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchDoctor = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/patient/all`);
+                console.log("Done Call");
+            } catch (error) {
+                console.error("Error fetching doctors, using DemoDoctors:", error);
+            }
+        };
+        fetchDoctor();
+    }, []);
 
     const handleNavigation = (route) => {
         navigate(route);

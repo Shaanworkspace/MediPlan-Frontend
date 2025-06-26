@@ -41,7 +41,7 @@ const HeaderPage = ({ adminName, ButtonText, onToggleSidebar }) => {
                         className="flex-1 flex flex-col md:flex-row items-start md:items-center gap-1 md:gap-3 cursor-pointer"
                     >
                         <div className="block text-black font-semibold justify-baseline items-baseline lg:flex flex-wrap leading-tight">
-                            <span className="text-lg sm:text-xl text-black">Stay Fit 😊,   </span>{' '}
+                            <span className="text-lg sm:text-xl text-black">Stay Fit 😊   </span>{' '}
                             <span className="text-xl sm:text-md p-2 rounded  sm:bg-gradient-to-r sm:from-pink-400 sm:to-purple-500 hover:from-pink-500 hover:to-purple-600 text-pink-400 sm:text-white   transition-all duration-300 hover:text-black  hover:tracking-wider">
                                 {adminName} !!
                             </span>

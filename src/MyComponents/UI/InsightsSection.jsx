@@ -16,8 +16,8 @@ export default function InsightsSection() {
                 </div>
 
                 {/* Tabs */}
-                <Tabs defaultValue="stats" className="w-full">
-                    <TabsList className="flex w-full flex-wrap sm:flex-nowrap justify-center sm:justify-evenly gap-2 bg-white/80 p-2 h-[10vh] rounded-xl shadow-lg border">
+                <Tabs defaultValue="stats" className=" w-full">
+                    <TabsList className="flex w-full flex-nowrap sm:flex-nowrap justify-center sm:justify-evenly gap-2 bg-white/80 p-2 h-[10vh] rounded-xl shadow-lg border">
                         <TabsTrigger
                             value="stats"
                             className="flex items-center gap-2 data-[state=active]:bg-purple-600 data-[state=active]:text-white px-5 py-5 rounded-lg font-semibold transition"

@@ -155,12 +155,12 @@ const LoginForm = () => {
                         <hr className="w-1/3 border-gray-300" />
                     </div>
 
-                    <div className="flex gap-4 justify-center">
-                        <button className="flex items-center gap-2 border px-4 py-2 rounded-lg hover:shadow transition">
+                    <div className="flex flex-col gap-4 justify-center">
+                        <button className="flex justify-center flex-nowrap items-center gap-2 border px-4 py-2 rounded-lg hover:shadow transition">
                             <FcGoogle alt="Google" className="w-5 h-5" />
-                            <span>Login with Google</span>
+                            <span > Login with Google</span>
                         </button>
-                        <button className="flex items-center gap-2 border px-4 py-2 rounded-lg hover:shadow transition">
+                        <button className="flex justify-center  items-center gap-2 border px-4 py-2 rounded-lg hover:shadow transition">
                             <FaGithub alt="GitHub" className="w-5 h-5" />
                             <span>Login with GitHub</span>
                         </button>
