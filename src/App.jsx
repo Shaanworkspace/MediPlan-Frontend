@@ -21,6 +21,7 @@ import ChangePassword from './MyComponents/Dashboards/Pages/ChangePassword';
 import AdminDashboard from './MyComponents/Dashboards/Admin/AdminDashboard';
 import DoctorPage from './MyComponents/Pages/Utilities/DoctorPage';
 import AboutPage from './MyComponents/UI/AboutPage';
+import AdminProfileCard from './MyComponents/Dashboards/DashboardUtilities/AdminProfileCard';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
                 <Route path='/admin-dashboard' element={<AdminDashboard/>}/>
                 <Route path='/public-doctor' element={<DoctorPage/>}/>
                 <Route path='/error' element={<ErrorPage/>}/>
+                <Route path='/admin/profile' element = {<AdminProfileCard/>}/>
             </Routes>
         </BrowserRouter>
     )

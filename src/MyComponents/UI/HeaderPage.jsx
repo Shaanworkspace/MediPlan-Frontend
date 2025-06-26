@@ -1,90 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import Footer from './Footer';
 
 const HeaderPage = ({ adminName, ButtonText, onToggleSidebar }) => {
     const navigate = useNavigate();
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const handleNavigation = (route) => {
         navigate(route);
-        setIsSidebarOpen(false); // Close sidebar on navigation
+        setIsMobileMenuOpen(false);
     };
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 768) {
+                setIsMobileMenuOpen(false);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('roles');
         navigate('/');
-        setIsSidebarOpen(false); // Close sidebar on logout
+        setIsMobileMenuOpen(false); // Close sidebar on logout
     };
 
     const toggleSidebar = () => {
-        setIsSidebarOpen(prev => !prev);
-        if (onToggleSidebar) onToggleSidebar(!isSidebarOpen); // Notify parent component
+        setIsMobileMenuOpen(prev => !prev);
+        if (onToggleSidebar) onToggleSidebar(!isMobileMenuOpen); // Notify parent component
     };
 
     return (
         <header className="bg-[#E6E6FA] pt-3 fixed top-0 w-full z-50">
-            <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-                <div className="flex h-16 items-center justify-between">
-                    <div onClick={() => handleNavigation('/')} className="flex-1 md:flex md:items-center md:gap-12">
-                        <div className="text-black font-semibold text-3xl">
-                            <span className='text-md text-black'>Stay Fit 😊, </span> <span className='text-md text-blue-600'>{adminName} !! </span>
+            <div className="max-w-screen-xl px-4 sm:px-6 lg:px-8">
+                <div className="flex  h-16 items-center justify-between">
+                    <div
+                        onClick={() => handleNavigation('/')}
+                        className="flex-1 flex flex-col md:flex-row items-start md:items-center gap-1 md:gap-3 cursor-pointer"
+                    >
+                        <div className="block text-black font-semibold justify-baseline items-baseline lg:flex flex-wrap leading-tight">
+                            <span className="text-lg sm:text-xl text-black">Stay Fit 😊,   </span>{' '}
+                            <span className="text-xl sm:text-md p-2 rounded  sm:bg-gradient-to-r sm:from-pink-400 sm:to-purple-500 hover:from-pink-500 hover:to-purple-600 text-pink-400 sm:text-white   transition-all duration-300 hover:text-black  hover:tracking-wider">
+                                {adminName} !!
+                            </span>
                         </div>
                     </div>
 
+
                     <div className="md:flex md:items-center md:gap-12">
-                        <nav aria-label="Global" className="hidden md:block">
+                        <nav aria-label="Global" className="hidden lg:block">
                             <ul className="flex items-center gap-6 text-sm">
-                                <li>
-                                    <a
-                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                        onClick={() => handleNavigation('/')}
-                                    >
-                                        Home
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                        onClick={() => handleNavigation('/report')}
-                                    >
-                                        Reports
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                        onClick={() => handleNavigation('/medicine')}
-                                    >
-                                        Medicines
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                        onClick={() => handleNavigation('/book-appointment')}
-                                    >
-                                        Appointment
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                        href="#"
-                                    >
-                                        Location
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                        onClick={() => handleNavigation('/contact')}
-                                    >
-                                        Help us
-                                    </a>
-                                </li>
+                                {[
+                                    { label: "Home", path: "/" },
+                                    { label: "Reports", path: "/report" },
+                                    { label: "Medicines", path: "/medicine" },
+                                    { label: "Appointment", path: "/book-appointment" },
+                                    { label: "Help us", path: "/contact" },
+                                ].map(({ label, path }, index) => (
+                                    <li key={index}>
+                                        <a
+                                            onClick={() => handleNavigation(path)}
+                                            className="relative text-black sm:text-lg px-1 transition-all duration-300 hover:text-purple-700 hover:tracking-wide
+                     before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-purple-600
+                     before:transition-all before:duration-300 hover:before:w-full"
+                                        >
+                                            {label}
+                                        </a>
+                                    </li>
+                                ))}
                             </ul>
                         </nav>
+
 
                         <div className="flex items-center gap-4">
                             <div className="sm:flex sm:gap-4">
@@ -96,9 +84,9 @@ const HeaderPage = ({ adminName, ButtonText, onToggleSidebar }) => {
                                 </button>
                             </div>
 
-                            <div className="block md:hidden">
+                            <div className="block lg:hidden">
                                 <button
-                                    onClick={toggleSidebar}
+                                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                                     className="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:hover:text-blue-900 sm:text-lg"
                                 >
                                     <svg
@@ -115,8 +103,23 @@ const HeaderPage = ({ adminName, ButtonText, onToggleSidebar }) => {
                             </div>
                         </div>
                     </div>
+                    {isMobileMenuOpen && (
+                        <div className="fixed inset-0 top-[4.5rem] z-[51] bg-[#E6E6FA] p-3 md:hidden shadow-md h-80">
+                            <ul className="space-y-6 text-lg">
+                                <li onClick={() => handleNavigation('/')}>Home</li>
+                                <li onClick={() => handleNavigation('/report')}>Reports</li>
+                                <li onClick={() => handleNavigation('/medicine')}>Medicines</li>
+                                <li onClick={() => handleNavigation('/book-appointment')}>Appointment</li>
+                                <li>Location</li>
+                                <li onClick={() => handleNavigation('/contact')}>Help us</li>
+                            </ul>
+                        </div>
+                    )}
+
                 </div>
+
             </div>
+
         </header>
     );
 };

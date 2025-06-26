@@ -1,5 +1,3 @@
-// src/components/AdminHeader.jsx
-"use client";
 
 import { Bell, Menu } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -15,18 +13,26 @@ import NotificationPanel from "../DashboardUtilities/NotificationPanel";
 import RightSidebar from "../DashboardUtilities/RightSidebar";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
+
 
 export default function AdminHeader({ searchTerm, setSearchTerm, searchBy, setSearchBy }) {
+  
+
+    const navigate  = useNavigate();
+    const handleNavigation = (route) => {
+        navigate(route);
+    }; 
     return (
         <header className="bg-[#E6E6FA] w-full dark:bg-neutral-900 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 shadow-sm flex items-center justify-between">
             {/* Left: Brand */}
             <div className="flex items-center gap-3">
-                <Menu className="w-6 h-6 text-muted-foreground lg:hidden" />
                 <div className="text-black font-semibold text-3xl">MediPlan</div>
             </div>
 
             {/* Center: Search */}
-            <div className="flex items-center justify-center gap-4">
+            <div className="hidden md:flex items-center justify-center gap-4">
                 <div className="relative w-full max-w-md">
                     <Input
                         type="text"
@@ -64,13 +70,15 @@ export default function AdminHeader({ searchTerm, setSearchTerm, searchBy, setSe
                     <DropdownMenuContent align="end" className="w-48">
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Profile</DropdownMenuItem>
+
+                        <DropdownMenuItem onClick={()=>handleNavigation("/admin/profile")}>Profile</DropdownMenuItem>
                         <DropdownMenuItem>Settings</DropdownMenuItem>
                         <DropdownMenuItem><a href="/">Logout</a></DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
                 <RightSidebar />
             </div>
+            
         </header>
     );
 }

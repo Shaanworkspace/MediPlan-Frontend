@@ -78,43 +78,8 @@ const LoginForm = () => {
 
     return (
         <div className="bg-[#E6E6FA]">
-            {/* Floating demo credentials */}
-            <div className="fixed top-24 right-8 z-50 flex flex-col gap-4">
-                <Card className="w-72 shadow-lg border-blue-400 border-2">
-                    <CardHeader>
-                        <CardTitle>Patient Demo</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="mb-2">
-                            <span className="font-semibold">Email:</span> neha.patel@patient.com
-                            <br />
-                            <span className="font-semibold">Password:</span> 1234
-                        </div>
-                        <div>
-                            <span className="font-semibold">Email:</span> vikram.rao@patient.com
-                            <br />
-                            <span className="font-semibold">Password:</span> 1234
-                        </div>
-                    </CardContent>
-                </Card>
-                <Card className="w-72 shadow-lg border-green-400 border-2">
-                    <CardHeader>
-                        <CardTitle>Admin Demo</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="mb-2">
-                            <span className="font-semibold">Email:</span> ravi.kumar@admin.com
-                            <br />
-                            <span className="font-semibold">Password:</span> 1234
-                        </div>
-                        <div>
-                            <span className="font-semibold">Email: </span> anuj.singh@admin.com
-                            <br />
-                            <span className="font-semibold">Password:</span> 1234
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
+
+
             {/* Navbar */}
             <div className="fixed top-0 left-0 w-full z-1">
                 <HomeHeader />
@@ -212,6 +177,43 @@ const LoginForm = () => {
                         </a>
                     </p>
                 </div>
+            </div>
+            {/* Floating demo credentials */}
+            <div className=" flex justify-center flex-wrap items-center lg:flex-col gap-4  lg:fixed lg:top-24 lg:right-8">
+                <Card className="w-72 shadow-lg border-blue-400 border-2">
+                    <CardHeader>
+                        <CardTitle>Patient Demo</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="mb-2">
+                            <span className="font-semibold">Email:</span> neha.patel@patient.com
+                            <br />
+                            <span className="font-semibold">Password:</span> 1234
+                        </div>
+                        <div>
+                            <span className="font-semibold">Email:</span> vikram.rao@patient.com
+                            <br />
+                            <span className="font-semibold">Password:</span> 1234
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card className="w-72 shadow-lg border-green-400 border-2">
+                    <CardHeader>
+                        <CardTitle>Admin Demo</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="mb-2">
+                            <span className="font-semibold">Email:</span> ravi.kumar@admin.com
+                            <br />
+                            <span className="font-semibold">Password:</span> 1234
+                        </div>
+                        <div>
+                            <span className="font-semibold">Email: </span> anuj.singh@admin.com
+                            <br />
+                            <span className="font-semibold">Password:</span> 1234
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     );

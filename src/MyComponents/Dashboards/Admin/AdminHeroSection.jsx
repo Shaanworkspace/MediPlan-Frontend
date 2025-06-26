@@ -62,14 +62,15 @@ export default function AdminHeroSection({ adminName, doctors, patients, searchT
     // Filter patients based on searchTerm and searchBy
     const filteredPatients = patients.filter((patient) => {
         if (searchBy === "name") {
-            return patient.name.toLowerCase().includes(searchTerm.toLowerCase());
+            return patient?.name?.toLowerCase().includes(searchTerm.toLowerCase());
         } else if (searchBy === "email") {
-            return patient.email.toLowerCase().includes(searchTerm.toLowerCase());
+            return patient?.email?.toLowerCase().includes(searchTerm.toLowerCase());
         } else if (searchBy === "phone") {
-            return patient.phone.toLowerCase().includes(searchTerm.toLowerCase());
+            return patient?.phone?.includes(searchTerm);
         }
         return true;
     });
+
 
     // Delete Patient from API
     const deletePatient = async (id) => {
@@ -103,7 +104,7 @@ export default function AdminHeroSection({ adminName, doctors, patients, searchT
     return (
         <main className="p-6 space-y-8">
             <div className="text-neutral-700 text-3xl">
-                Welcome <span className="text-green-600 font-bold">{adminName}</span>
+                Welcome , <span className="text-green-600 font-bold">{adminName}</span>
             </div>
             {/* Hero Cards */}
             <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -134,8 +135,15 @@ export default function AdminHeroSection({ adminName, doctors, patients, searchT
             </section>
 
             {/* Doctor Cards */}
-            <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Doctors Records</h2>
+            <div className="flex items-center justify-between group ">
+                <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 transition-all duration-300 group-hover:text-purple-700 group-hover:tracking-wide group-hover:underline underline-offset-4">Doctors Records</h2>
+                {/* Creative Header with Dynamic Date and Time */}
+                <div className="hidden md:block relative text-center bg-gradient-to-r from-indigo-100 to-purple-100 p-4 rounded-lg shadow-lg animate-pulse-slow">
+                    <h3 className="text-lg font-semibold text-gray-800">
+                        Records Till Today : <span className="text-purple-600">{new Date().toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' })}</span>
+                    </h3>
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-purple-400 rounded-full"></div>
+                </div>
                 <Button className="flex gap-2" onClick={() => navigate("/signup")}>
                     <Plus className="w-4 h-4" />
                     Add New Doctor
@@ -145,14 +153,7 @@ export default function AdminHeroSection({ adminName, doctors, patients, searchT
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-6 p-6 max-h-[700px] overflow-y-auto">
                     {filteredDoctors.map((doctor) => (
                         <Card key={doctor.id} className="min-w-80 overflow-hidden shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-                            <CardHeader className="flex flex-row items-center p-2">
-                                <img
-                                    src={doctor.photo || "https://via.placeholder.com/50"}
-                                    alt={`${doctor.firstName} ${doctor.lastName}`}
-                                    className="w-10 h-10 rounded-full mr-4"
-                                />
-                                <CardTitle className="text-lg">{`${doctor.firstName} ${doctor.lastName}`}</CardTitle>
-                            </CardHeader>
+                            <CardHeaderWithRandomAvatar patient={doctor} />
                             <CardContent className="p-2">
                                 <div className="space-y-3 p-4 bg-gradient-to-br from-white to-gray-50 rounded-lg shadow-inner">
                                     <p className="text-sm text-gray-600 flex items-center gap-2">
@@ -216,12 +217,12 @@ export default function AdminHeroSection({ adminName, doctors, patients, searchT
             </div>
 
             {/* Patient Cards */}
-            <div className="flex items-center justify-between mt-20">
-                <h2 className="text-3xl font-semibold">Patient Records</h2>
+            <div className="flex items-center justify-between mt-20 gap-5 group">
+                <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 transition-all duration-300 group-hover:text-purple-700 group-hover:tracking-wide group-hover:underline underline-offset-4">Patient Records</h2>
                 {/* Creative Header with Dynamic Date and Time */}
-                <div className="relative text-center bg-gradient-to-r from-indigo-100 to-purple-100 p-4 rounded-lg shadow-lg animate-pulse-slow">
+                <div className="hidden md:block relative text-center bg-gradient-to-r from-indigo-100 to-purple-100 p-4 rounded-lg shadow-lg animate-pulse-slow">
                     <h3 className="text-lg font-semibold text-gray-800">
-                        Today: <span className="text-purple-600">{new Date().toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' })}</span>
+                        Records Till Today : <span className="text-purple-600">{new Date().toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' })}</span>
                     </h3>
                     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-purple-400 rounded-full"></div>
                 </div>

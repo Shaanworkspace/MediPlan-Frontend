@@ -26,63 +26,52 @@ const HomeHeader = () => {
                 <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <div onClick={() => handleNavigation('/')} className="flex-1 md:flex md:items-center md:gap-12">
-                            <div className='text-black font-semibold text-2xl sm:text-3xl md:text-4xl cursor-pointer'>
+                            <div className="text-black font-semibold text-2xl sm:text-3xl md:text-4xl cursor-pointer transition-all duration-300 hover:text-purple-600 hover:tracking-wide hover:scale-105">
                                 MediPlan
                             </div>
+
                         </div>
 
                         <div className="md:flex md:items-center md:gap-12">
                             <nav aria-label="Global" className="hidden md:block">
                                 <ul className="flex items-center gap-6 text-sm">
-                                    <li>
-                                        <a
-                                            className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                            onClick={() => handleNavigation("/")}
-                                        >
-                                            Home
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                            onClick={() => handleNavigation('/public-doctor')}
-                                        >
-                                            Search Doctors
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                            onClick={() => handleNavigation('/about')}
-                                        >
-                                            About
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="text-black transition hover:text-gray-500/75 dark:hover:text-blue-900 sm:text-lg"
-                                            onClick={() => handleNavigation('/contact')}
-                                        >
-                                            Contact
-                                        </a>
-                                    </li>
+                                    {[
+                                        { label: "Home", path: "/" },
+                                        { label: "Search Doctors", path: "/public-doctor" },
+                                        { label: "About", path: "/about" },
+                                        { label: "Contact", path: "/contact" },
+                                    ].map(({ label, path }, index) => (
+                                        <li key={index}>
+                                            <a
+                                                onClick={() => handleNavigation(path)}
+                                                className="relative text-black font-medium sm:text-lg px-1 transition-all duration-300 hover:text-purple-700 hover:tracking-wide
+                     before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-purple-600
+                     before:transition-all before:duration-300 hover:before:w-full"
+                                            >
+                                                {label}
+                                            </a>
+                                        </li>
+                                    ))}
                                 </ul>
                             </nav>
+
 
                             <div className="flex items-center gap-4">
                                 <div className="sm:flex sm:gap-4">
                                     <button
-                                        className="hover:shadow-xl transition duration-300 rounded-md bg-teal-600 px-5 py-2.5 sm:text-lg font-medium text-white shadow-md hover:bg-teal-800"
                                         onClick={() => handleNavigation('/login')}
+                                        className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-medium rounded-lg px-5 py-2.5 shadow-md hover:shadow-xl transition duration-300 sm:text-lg"
                                     >
                                         AI Agent
                                     </button>
+
                                     <button
-                                        className="hover:shadow-xl transition duration-300 rounded-md bg-gray-200 px-5 py-2.5 sm:text-lg font-medium text-black shadow-md hover:bg-gray-300 ml-2"
                                         onClick={() => handleNavigation('/signup')}
+                                        className="bg-gradient-to-r from-green-300 to-green-600 hover:from-purple-400 hover:to-green-700 text-white font-medium rounded-lg px-5 py-2.5 shadow-md hover:shadow-xl transition duration-300 sm:text-lg ml-2 hidden lg:block"
                                     >
                                         Sign Up
                                     </button>
+
                                 </div>
 
                                 <div className="block md:hidden">

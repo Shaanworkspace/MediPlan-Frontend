@@ -8,10 +8,10 @@ const Contact = () => {
             <div className="fixed top-0 left-0 w-full z-1">
                 <HomeHeader />
             </div>
-            <div className="mt-6 max-w-6xl max-lg:max-w-3xl mx-auto  rounded-lg">
+            <div className="mt-18 max-w-6xl max-lg:max-w-3xl mx-auto  rounded-lg">
                 <div className="grid lg:grid-cols-2 items-center gap-14 sm:p-8 p-4">
                     <div>
-                        <h1 className="text-4xl font-semibold text-black ">Get in Touch</h1>
+                        <h1 className="text-2xl md:text-4xl font-semibold text-black ">Get in Touch</h1>
                         <p className="text-sm text-black  mt-6 leading-relaxed">Have some big idea or brand to develop and need help? Then reach out we'd love to hear about your project  and provide help.</p>
                         <ul className="mt-12 space-y-8 text-black ">
                             <li className="flex items-center">

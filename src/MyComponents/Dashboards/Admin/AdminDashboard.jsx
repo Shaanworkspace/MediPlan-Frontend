@@ -9,6 +9,7 @@ const AdminDashboard = () => {
     const [patients, setPatients] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const adminName = localStorage.getItem('adminName') || 'Admin';
+    
     // Fetch doctors from API
     const fetchDoctor = async () => {
         try {
@@ -28,7 +29,7 @@ const AdminDashboard = () => {
     };
     const fetchPatients = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/patient/all`); // Adjust endpoint
+            const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/patient/all`);
             setPatients(response.data);
         } catch (error) {
             console.error("Error fetching patients, using DemoPatients:", error);
@@ -47,7 +48,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         fetchDoctor();
         fetchPatients();
-    }, [refresh]); // ✅ re-fetch when refresh toggles
+    }, [refresh]);
 
 
     return (
