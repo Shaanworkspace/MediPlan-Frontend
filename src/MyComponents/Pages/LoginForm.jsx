@@ -108,7 +108,7 @@ const LoginForm = () => {
                             <span className="font-semibold">Password:</span> 1234
                         </div>
                         <div>
-                            <span className="font-semibold">Email:</span> anuj.singh@admin.com
+                            <span className="font-semibold">Email: </span> anuj.singh@admin.com
                             <br />
                             <span className="font-semibold">Password:</span> 1234
                         </div>
