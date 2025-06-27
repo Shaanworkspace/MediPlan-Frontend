@@ -22,16 +22,11 @@ const HomePage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchDoctor = async () => {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/patient/all`);
-                console.log("Done Call");
-            } catch (error) {
-                console.error("Error fetching doctors, using DemoDoctors:", error);
-            }
-        };
-        fetchDoctor();
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/health/hello`)
+            .then(() => console.log("Backend wake-up ping sent"))
+            .catch((err) => console.error("Ping failed:", err));
     }, []);
+
 
     const handleNavigation = (route) => {
         navigate(route);

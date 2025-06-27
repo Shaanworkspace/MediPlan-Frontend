@@ -7,6 +7,7 @@ import axios from "axios";
 import HomeHeader from "../UI/HomeHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const LoginForm = () => {
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -19,15 +20,26 @@ const LoginForm = () => {
         const { name, value } = event.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
+    useEffect(() => {
+        let timeout;
+        if (loading) {
+            timeout = setTimeout(() => {
+                setError('Server is waking up. Please wait a bit longer...');
+            }, 15000);
+        }
+        return () => clearTimeout(timeout);
+    }, [loading]);
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent page reload on form submission
         setError(null);
         setSuccess(null);
+        setLoading(true); // START LOADING
 
         // Validate email format
         if (!/\S+@\S+\.\S+/.test(formData.email)) {
             setError("Invalid email format");
+            setLoading(false);
             return;
         }
 
@@ -36,6 +48,7 @@ const LoginForm = () => {
                 email: formData.email,
                 password: formData.password
             });
+
             console.log(response.data);
 
             const { token, roles, firstName, lastName, email } = response.data;
@@ -57,6 +70,7 @@ const LoginForm = () => {
                 password: '',
             });
             setSuccess('Login successful! Redirecting...');
+            setLoading(false); // END LOADING
             // Redirect based on role
             if (roles.includes('ADMIN')) {
                 navigate('/admin-dashboard', { state: { adminName } });
@@ -69,6 +83,7 @@ const LoginForm = () => {
         } catch (err) {
             console.error('Login failed:', err.response);
             setError(err.response?.data?.error || 'Login failed. Please try again.');
+            setLoading(false); // END LOADING
         }
     };
 
@@ -101,7 +116,7 @@ const LoginForm = () => {
                         </div>
                     )}
 
-                    <form className="space-y-4" onSubmit={handleSubmit}>
+                    <form className="space-y-4" onSubmit={handleSubmit} aria-busy={loading}>
                         <div>
                             <label
                                 htmlFor="email"
@@ -141,10 +156,34 @@ const LoginForm = () => {
 
                         <div>
                             <button
+                                disabled={loading}
                                 type="submit"
-                                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl transition-all"
+                                className={`w-full ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}  text-white flex justify-center items-center py-2 rounded-xl transition-all`}
                             >
-                                Login
+                                {loading ? (<>
+                                    <svg
+                                        className="animate-spin h-5 w-5 mr-2 text-white"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <circle
+                                            className="opacity-25"
+                                            cx="12"
+                                            cy="12"
+                                            r="10"
+                                            stroke="currentColor"
+                                            strokeWidth="4"
+                                        ></circle>
+                                        <path
+                                            className="opacity-75"
+                                            fill="currentColor"
+                                            d="M4 12a8 8 0 018-8v8H4z"
+                                        ></path>
+                                    </svg>
+                                    Please wait...
+                                </>) : ('Login')}
+
                             </button>
                         </div>
                     </form>
@@ -177,9 +216,9 @@ const LoginForm = () => {
                         </a>
                     </p>
                 </div>
-            </div>
+            </div >
             {/* Floating demo credentials */}
-            <div className=" flex justify-center flex-wrap items-center lg:flex-col gap-4  lg:fixed lg:top-24 lg:right-8">
+            < div className=" flex justify-center flex-wrap items-center lg:flex-col gap-4  lg:fixed lg:top-24 lg:right-8" >
                 <Card className="w-72 shadow-lg border-blue-400 border-2">
                     <CardHeader>
                         <CardTitle>Patient Demo</CardTitle>
@@ -214,8 +253,8 @@ const LoginForm = () => {
                         </div>
                     </CardContent>
                 </Card>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 
