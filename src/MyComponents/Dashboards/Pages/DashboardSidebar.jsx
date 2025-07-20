@@ -7,7 +7,7 @@ const DashboardSidebar = () => {
         navigate(route);
     }
     return (
-        <div className="lg:w-1/4 w-full bg-[#E6E6FA] p-6 shadow-lg space-y-6">
+        <div className="lg:w-1/4 bg-[#E6E6FA] p-6 shadow-lg space-y-6">
             <div>
                 <h2 className="text-lg font-semibold text-[#2C2C54] mb-4 flex items-center">
                     <FiBell className="mr-2 text-2xl" /> Quick Actions

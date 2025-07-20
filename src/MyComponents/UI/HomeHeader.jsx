@@ -58,12 +58,13 @@ const HomeHeader = () => {
 
                             <div className="flex items-center gap-4">
                                 <div className="sm:flex sm:gap-4">
-                                    <button
-                                        onClick={() => handleNavigation('/login')}
-                                        className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-medium rounded-lg px-5 py-2.5 shadow-md hover:shadow-xl transition duration-300 sm:text-lg"
-                                    >
-                                        AI Agent
-                                    </button>
+                                    <a href="https://symp-ai.vercel.app/">
+                                        <button
+                                            className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-medium rounded-lg px-5 py-2.5 shadow-md hover:shadow-xl transition duration-300 sm:text-lg"
+                                        >
+                                            AI Symptom Check
+                                        </button>
+                                    </a>
 
                                     <button
                                         onClick={() => handleNavigation('/signup')}

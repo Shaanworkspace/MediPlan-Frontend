@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FiCalendar, FiFileText, FiUpload, FiDollarSign, FiBell, FiUser, FiLock, FiClock, FiTablet, FiEye, FiPlus } from 'react-icons/fi';
-import { useNavigate } from 'react-router'
 import HeaderPage from '../UI/HeaderPage';
-import { Sidebar } from '../UI/Sidebar';
 import DashboardSidebar from './Pages/DashboardSidebar';
 import axios from "axios";
 import { Button } from "@/components/ui/button";
@@ -44,19 +42,10 @@ const UserDashboard = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [userDetails, setUserDetails] = useState([]);
     const [reminder, setReminder] = useState({ name: '', date: '', time: '' });
-    const navigate = useNavigate();
     const [openDialogId, setOpenDialogId] = useState(null);
 
     const adminName = localStorage.getItem('adminName') || 'Admin';
-    const [refresh, setRefresh] = useState(false);
-    const print = (item) => {
-        console.log(item)
-    }
 
-
-    const handleNavigation = (route) => {
-        navigate(route);
-    }
     const handleReminderSubmit = (e) => {
         e.preventDefault();
         setIsModalOpen(false);
@@ -81,7 +70,6 @@ const UserDashboard = () => {
         <div className="min-h-screen bg-[#E6E6FA] flex flex-col">
             {/* Header */}
             <div className="bg-black mb-4 fixed z-40 ">
-                
                 <HeaderPage ButtonText={"Log out"} adminName={adminName} className="mb-4 " />
             </div>
             {/* Main Content */}
@@ -89,7 +77,6 @@ const UserDashboard = () => {
                 <main className="flex flex-col lg:flex-row flex-grow mt-17">
                     {/* Sidebar */}
                     <DashboardSidebar />
-
                     {/* Dashboard Content */}
                     <section className="flex-1 p-8 space-y-8 overflow-auto">
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -126,8 +113,6 @@ const UserDashboard = () => {
 
 
                             <div className="overflow-x-auto">
-
-
                                 <table className="w-full text-left border-collapse">
                                     <thead>
                                         <tr className="bg-white">
@@ -143,7 +128,7 @@ const UserDashboard = () => {
                                     <tbody>
                                         {userDetails.map((item, index) => {
                                             return (
-                                                <tr key={item.id} className="hover:bg-gray-50 transition">
+                                                <tr key={index} className="hover:bg-gray-50 transition">
                                                     <td className="p-4">{item.appointmentDateTime}</td>
                                                     <td className="p-4">{item.doctorName}</td>
                                                     <td className="p-4">{item.doctorSpecialization}</td>
@@ -275,7 +260,7 @@ const UserDashboard = () => {
             )}
 
             {/* Footer */}
-            <Footer/>
+            <Footer />
         </div>
     );
 };

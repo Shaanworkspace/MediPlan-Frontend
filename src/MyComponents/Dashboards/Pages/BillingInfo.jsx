@@ -49,7 +49,7 @@ const BillingInfo = () => {
                 {/* Main Section */}
                 <section className="flex-1 p-8 space-y-8 overflow-auto">
                     <div className="flex items-center space-x-4">
-                        <Link to="/dashboard" className="text-blue-600 hover:text-blue-800">
+                        <Link to="/user-dashboard" className="text-blue-600 hover:text-blue-800">
                             <FiArrowLeft size={24} />
                         </Link>
                         <h1 className="text-3xl font-bold text-blue-600 flex items-center">

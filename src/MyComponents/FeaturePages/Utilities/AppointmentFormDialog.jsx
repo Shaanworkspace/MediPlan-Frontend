@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import axios from "axios";
+// import axios from "axios";
 import { Textarea } from "@/components/ui/textarea";
 
 const AppointmentFormDialog = ({ open, setOpen, appointment, onUpdate, dialogTrigger }) => {
@@ -45,10 +45,10 @@ const AppointmentFormDialog = ({ open, setOpen, appointment, onUpdate, dialogTri
         e.preventDefault();
         try {
             console.log(formData, "Success vala");
-            const res = await axios.put(
-                `${import.meta.env.VITE_API_BASE_URL}/appointment/update/${appointment.id}`,
-                formData
-            );
+            // const res = await axios.put(
+            //     `${import.meta.env.VITE_API_BASE_URL}/appointment/update/${appointment.id}`,
+            //     formData
+            // );
             toast.success("Appointment updated successfully!");
             setOpen(false);
             onUpdate();
@@ -60,6 +60,7 @@ const AppointmentFormDialog = ({ open, setOpen, appointment, onUpdate, dialogTri
 
 
     return (
+    
         <Dialog open={open} onOpenChange={setOpen} >
             <form>
                 <DialogTrigger asChild>

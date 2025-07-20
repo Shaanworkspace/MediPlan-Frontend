@@ -50,7 +50,7 @@ export default function AdminProfileCard() {
                 );
                 setUser(res.data);
             } catch (e) {
-                console.warn("Using DemoAdmin as fallback.");
+                console.warn("Using DemoAdmin as fallback.",e);
                 setUser(DemoAdmin);
             }
         };
